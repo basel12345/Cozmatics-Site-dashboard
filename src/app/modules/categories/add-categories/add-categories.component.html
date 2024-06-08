@@ -1,0 +1,60 @@
+<form [formGroup]="categoryForm" (ngSubmit)="SaveData()">
+    <div class="card ">
+        <div class="row p-2 m-5">
+            <div class="col-12">
+                <label>
+                    Name
+                </label>
+                <input formControlName="name" placeholder="Your name" class="form-control w-100">
+                <div class="error-danger"
+                    *ngIf="categoryForm.get('name')?.invalid && subbmited">
+                    Please provide a name.
+                </div>
+            </div>
+            <div class="col-12">
+                <label>
+                    Name arbic
+                </label>
+                <input formControlName="nameAr" placeholder="Your name Arabic" class="form-control w-100">
+                <div class="error-danger"
+                    *ngIf="categoryForm.get('nameAr')?.invalid && subbmited">
+                    Please provide a name arabic.
+                </div>
+            </div>
+            <div class="col-12">
+                <label>
+                    Description
+                </label>
+                <input formControlName="description" placeholder="Description" class="form-control w-100">
+                <div class="error-danger"
+                    *ngIf="categoryForm.get('description')?.invalid && subbmited">
+                    Please provide a description.
+                </div>
+            </div>
+            <div class="col-12">
+                <label>
+                    Description arabic
+                </label>
+                <input formControlName="descriptionAr" placeholder="Description arabic" class="form-control w-100">
+                <div class="error-danger"
+                    *ngIf="categoryForm.get('descriptionAr')?.invalid && subbmited">
+                    Please provide a description arabic.
+                </div>
+            </div>
+            <div class="col-12">
+                <label>
+                    Parent category
+                </label>
+                <select class="form-select" aria-label="Default select example">
+                    <option [value]="null">Parent category </option>
+                    <option *ngFor="let res of categories" [value]="res.id">{{res.name}}</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <input class="form-check-input me-2" formControlName="isSelected" type="checkbox" id="isSelected">
+                <label class="form-check-label" for="isSelected">Is Selected</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
