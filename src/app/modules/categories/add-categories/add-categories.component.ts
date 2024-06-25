@@ -17,7 +17,7 @@ export class AddCategoriesComponent implements OnInit {
 	category: any;
 	categoryForm!: FormGroup;
 	categories: any;
-	subbmited: boolean = false;
+	submitted: boolean = false;
 	constructor(
 		private route: ActivatedRoute,
 		private categoriesService: CategoriesService,
@@ -62,21 +62,23 @@ export class AddCategoriesComponent implements OnInit {
 
 
 	SaveData() {
+		const parentId = this.categoryForm.get("parentId")?.getRawValue();
+		if (parentId) this.categoryForm.get("parentId")?.patchValue(+parentId);
 		if (this.categoryForm.invalid) {
-			this.subbmited = true;
+			this.submitted = true;
 			return;
 		}
 		if (this.id) {
 			this.categoriesService.editCategory({ id: this.id, ...this.categoryForm.getRawValue() }).subscribe(res => {
 				this.toastr.success('Category is Updated', 'Success');
 				this.router.navigate(['categories']);
-				this.subbmited = false;
+				this.submitted = false;
 			})
 		} else {
 			this.categoriesService.addCategory(this.categoryForm.getRawValue()).subscribe(res => {
 				this.toastr.success('Category is Saved', 'Success');
 				this.router.navigate(['categories']);
-				this.subbmited = false;
+				this.submitted = false;
 			})
 		}
 	}
