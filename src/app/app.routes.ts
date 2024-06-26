@@ -18,6 +18,18 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/categories/add-categories/add-categories.component").then(c => c.AddCategoriesComponent)
     },
     {
+        path: "Products",
+        loadComponent: () => import("./modules/Products/products/products.component").then(p=> p.ProductsComponent)
+    },
+    {
+        path: "Product",
+        loadComponent: () => import("./modules/Products/add-products/add-products.component").then(c => c.AddProductsComponent)
+    },
+    {
+        path: "Product/:id",
+        loadComponent: () => import("./modules/Products/add-products/add-products.component").then(c => c.AddProductsComponent)
+    },
+    {
         path: "**",
         pathMatch: "full",
         redirectTo: "categories"

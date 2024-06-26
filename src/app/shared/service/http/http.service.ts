@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class HttpService {
-	api: string = 'http://abaq2023-001-site1.htempurl.com/api/';
+	api: string = 'http://localhost:5237/api/';//'http://abaq2023-001-site1.htempurl.com/api/';
 	constructor(private httpClient: HttpClient) { }
 
 	get(url: string) {
-		return this.httpClient.get(`${this.api}${url}`);
+		return this.httpClient.get<any>(`${this.api}${url}`);
 	}
 
 	post(url: string, data: any) {

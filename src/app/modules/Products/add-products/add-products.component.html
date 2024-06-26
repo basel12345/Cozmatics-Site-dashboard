@@ -1,0 +1,83 @@
+<form [formGroup]="productForm" (ngSubmit)="SaveData()">
+    <div class="card p-5 mt-5 mb-2">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <label>Name</label>
+                <input type="text" formControlName="name" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('name')?.errors?.['required']">
+                    Name is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Name Arabic</label>
+                <input type="text" formControlName="nameAr" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('nameAr')?.errors?.['required']">
+                    Name Arabic is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Description</label>
+                <input type="text" formControlName="description" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('description')?.errors?.['required']">
+                    Description is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Description Arabic</label>
+                <input type="text" formControlName="descriptionAr" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('descriptionAr')?.errors?.['required']">
+                    Description Arabic is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Category</label>
+                <select formControlName="categoryId" class="form-control">
+                    <option *ngFor="let res of categories" [value]="res.id">
+                        {{res.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Brand</label>
+                <select formControlName="brandId" class="form-control">
+                    <option *ngFor="let res of brands" [value]="res.id">
+                        {{res.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-12 mt-3">
+                <label>Price</label>
+                <input type="number" formControlName="price" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('price')?.errors?.['required']">
+                    Price is required
+                </span>
+                <span class="text-danger" *ngIf="submitted && productForm.get('price')?.errors?.['min']">
+                    Enter valid price
+                </span>
+            </div>
+
+            <div class="col-md-6 col-12 mt-3">
+                <label>Quantity</label>
+                <input type="number" formControlName="qty" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('qty')?.errors?.['required']">
+                    Quantity is required
+                </span>
+                <span class="text-danger" *ngIf="submitted && productForm.get('qty')?.errors?.['min']">
+                    Enter valid Quantity
+                </span>
+            </div>
+
+            <div class="col-md-6 col-12 mt-3">
+                <label>Discount</label>
+                <input type="number" formControlName="discountPercentage" class="form-control">
+                <span class="text-danger" *ngIf="submitted &&(productForm.get('discountPercentage')?.errors?.['min'] ||  productForm.get('discountPercentage')?.errors?.['max'])">
+                    Enter valid Discount
+                </span>
+            </div>
+
+            <div class="col-12 text-end m-2">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
