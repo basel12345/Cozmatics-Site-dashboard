@@ -1,0 +1,32 @@
+<div class="m-2 header-add">
+    <p-button label="Add Advertisement" class="m-10" (onClick)="navigateToAddAdvertisement()"/>
+</div>
+<p-table [value]="advertisements" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>discount</th>
+            <th>image</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-advertisement>
+        <tr>
+            <td>{{ advertisement.discount }}</td>
+            <td>
+                <img *ngIf="advertisement.Img" style="width: 43px; height: 43px;" class="d-block"
+                    [src]="sanitizationImage(advertisement.img)" alt="">
+                <span *ngIf="!advertisement.Img">N/A</span>
+            </td>
+            <td>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <p-button (onClick)="deleteAdvertisement(advertisement.id)" label="Delete" severity="danger" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <p-button (onClick)="navigateToEditAdvertisement(advertisement.id)" label="Edit" severity="info" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

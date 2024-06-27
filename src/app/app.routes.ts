@@ -18,6 +18,30 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/categories/add-categories/add-categories.component").then(c => c.AddCategoriesComponent)
     },
     {
+        path: "brands",
+        loadComponent: () => import("./modules/brands/brands.component").then(c => c.BrandsComponent)
+    },
+    {
+        path: "brand",
+        loadComponent: () => import("./modules/brands/add-brands/add-brands.component").then(c => c.AddBrandsComponent)
+    },
+    {
+        path: "brand/:id",
+        loadComponent: () => import("./modules/brands/add-brands/add-brands.component").then(c => c.AddBrandsComponent)
+    },
+    {
+        path: "advertisements",
+        loadComponent: () => import("./modules/advertisement/advertisement.component").then(c => c.AdvertisementsComponent)
+    },
+    {
+        path: "advertisement",
+        loadComponent: () => import("./modules/advertisement/add-advertisement/add-advertisement.component").then(c => c.AddAdvertisementsComponent)
+    },
+    {
+        path: "advertisement/:id",
+        loadComponent: () => import("./modules/advertisement/add-advertisement/add-advertisement.component").then(c => c.AddAdvertisementsComponent)
+    },
+    {
         path: "Products",
         loadComponent: () => import("./modules/Products/products/products.component").then(p=> p.ProductsComponent)
     },

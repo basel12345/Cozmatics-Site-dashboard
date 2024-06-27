@@ -1,0 +1,34 @@
+<div class="m-2 header-add">
+    <p-button label="Add Brand" class="m-10" (onClick)="navigateToAddBrand()"/>
+</div>
+<p-table [value]="brands" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Name Arabic</th>
+            <th>image</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-brand>
+        <tr>
+            <td>{{ brand.name }}</td>
+            <td>{{ brand.nameAr }}</td>
+            <td>
+                <img *ngIf="brand.image" style="width: 43px; height: 43px;" class="d-block"
+                    [src]="sanitizationImage(brand.image)" alt="">
+                <span *ngIf="!brand.image">N/A</span>
+            </td>
+            <td>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <p-button (onClick)="deleteBrand(brand.id)" label="Delete" severity="danger" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <p-button (onClick)="navigateToEditBrand(brand.id)" label="Edit" severity="info" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
