@@ -54,6 +54,10 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/Products/add-products/add-products.component").then(c => c.AddProductsComponent)
     },
     {
+        path: "Reviews/:id",
+        loadComponent: () => import("./modules/Reviews/reviews/reviews.component").then(c => c.ReviewsComponent)
+    },
+    {
         path: "**",
         pathMatch: "full",
         redirectTo: "categories"

@@ -56,4 +56,7 @@ export class ProductsComponent {
 	navigateToEditProduct(id: number) {
 		this.router.navigate([`Product/${id}`]);
 	}
+	navigateToProductReviews(id: number) {
+		this.router.navigate([`Reviews/${id}`]);
+	}
 }
