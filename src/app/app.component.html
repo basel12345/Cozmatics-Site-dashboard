@@ -1,4 +1,12 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="token"></app-navbar>
 <div class="container">
   <router-outlet />
+</div>
+
+<div *ngIf="loadingService.show" class="overlay">
+</div>
+
+<div *ngIf="loadingService.show" class="flex justify-content-center align-items-center loader">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="transparent"
+        animationDuration=".5s"></p-progressSpinner>
 </div>

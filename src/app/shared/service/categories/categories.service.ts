@@ -27,4 +27,8 @@ export class CategoriesService {
 	addCategory(data: any) {
 		return this.httpService.post("Category/Add", data);
 	}
+
+	uploadFile(id: number, data: any) {
+		return this.httpService.post(`gallery/uploadCategoryImg/${id}`, data);
+	}
 }

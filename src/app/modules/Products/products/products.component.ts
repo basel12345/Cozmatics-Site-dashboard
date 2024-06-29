@@ -12,15 +12,15 @@ import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
+	selector: 'app-products',
+	standalone: true,
 	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+	templateUrl: './products.component.html',
+	styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  products: any;
-  constructor(
+	products: any;
+	constructor(
 		private productsService: ProductsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
@@ -28,13 +28,12 @@ export class ProductsComponent {
 	) { }
 
 
-  ngOnInit(): void {
-    this.getAllProducts();
-    console.log(this.products)
+	ngOnInit(): void {
+		this.getAllProducts();
 	}
 
 	getAllProducts() {
-		this.productsService.getAllProducts(1, 10).subscribe((res )=> {
+		this.productsService.getAllProducts(1, 10).subscribe((res) => {
 			this.products = res.products;
 		});
 	}
@@ -46,6 +45,7 @@ export class ProductsComponent {
 		this.productsService.deleteProduct(id).subscribe(res => {
 			this.toastr.success('Product has been Deleted', 'Success');
 			this.getAllProducts();
+			this.products = this.products.filter((res: any) => res.id !== id);
 		})
 	}
 
@@ -58,5 +58,11 @@ export class ProductsComponent {
 	}
 	navigateToProductReviews(id: number) {
 		this.router.navigate([`Reviews/${id}`]);
+	}
+	navigateToImages(id: number) {
+		this.router.navigate([`images-product/${id}`]);
+	}
+	changePhoto(id: number) {
+		this.router.navigate([`add-image/${id}`])
 	}
 }

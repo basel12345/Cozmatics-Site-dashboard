@@ -23,7 +23,7 @@ export class AddAdvertisementsComponent implements OnInit {
 	advertisementForm!: FormGroup;
 	advertisements: any;
 	submitted: boolean = false;
-	tagKeys:any;
+	tagKeys: any;
 	tags = Tags;
 	constructor(
 		private route: ActivatedRoute,
@@ -34,11 +34,11 @@ export class AddAdvertisementsComponent implements OnInit {
 		private toastr: ToastrService,
 		private router: Router
 	) { }
-	counter=0;
+	counter = 0;
 	id!: number;
 	ngOnInit(): void {
-		this.tagKeys= Object.keys(this.tags);
-		this.tagKeys = this.tagKeys.slice(0,this.tagKeys.length / 2);
+		this.tagKeys = Object.keys(this.tags);
+		this.tagKeys = this.tagKeys.slice(0, this.tagKeys.length / 2);
 		this.initForm();
 		this.route.params.subscribe(res => {
 			this.id = res["id"];
@@ -63,10 +63,10 @@ export class AddAdvertisementsComponent implements OnInit {
 
 	initForm() {
 		this.advertisementForm = this.fb.group({
-			tag:null,
-			discount: Number,
-			brandId: Number,
-			categoryId: Number
+			tag: null,
+			discount: null,
+			brandId: null,
+			categoryId: null
 		})
 	}
 
@@ -74,19 +74,16 @@ export class AddAdvertisementsComponent implements OnInit {
 		this.advertisementsService.getAdvertisementByid(id).subscribe(res => {
 			this.advertisement = res;
 			this.advertisementForm.patchValue(this.advertisement);
-			console.log(this.advertisementForm);
 		})
 	}
 
 
 	SaveData() {
-		
 		var tagCheck = this.advertisementForm.controls['tag'].value;
 		var brandIdCheck = this.advertisementForm.controls['brandId'].value;
 		var categoryIdCheck = this.advertisementForm.controls['categoryId'].value;
 		var discountCheck = this.advertisementForm.controls['discount'].value;
-
-		if (!tagCheck&&!brandIdCheck&&!categoryIdCheck&&!discountCheck) {
+		if (!tagCheck && !brandIdCheck && !categoryIdCheck && !discountCheck) {
 			this.submitted = true;
 			this.toastr.error('Enter At least Category or Brand Or Tag Or Discount', 'Error');
 			return;

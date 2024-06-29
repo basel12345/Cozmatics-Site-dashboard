@@ -19,10 +19,10 @@
             <td>{{ category.nameAr }}</td>
             <td>{{ category.description }}</td>
             <td>{{ category.descriptionAr }}</td>
-            <td>
+            <td style="cursor: pointer;" (click)="changePhoto(category.id)">
                 <img *ngIf="category.img" style="width: 43px; height: 43px;" class="d-block"
                     [src]="sanitizationImage(category.img)" alt="">
-                <span *ngIf="!category.img">N/A</span>
+                <button class="btn btn-primary" *ngIf="!category.img">Add</button>
             </td>
             <td>
                 <p-checkbox [disabled]="true" [(ngModel)]="category.isSelected" [binary]="true" inputId="binary" />

@@ -1,5 +1,5 @@
 <div class="m-2 header-add">
-    <p-button label="Add Brand" class="m-10" (onClick)="navigateToAddBrand()"/>
+    <p-button label="Add Brand" class="m-10" (onClick)="navigateToAddBrand()" />
 </div>
 <p-table [value]="brands" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
@@ -14,10 +14,10 @@
         <tr>
             <td>{{ brand.name }}</td>
             <td>{{ brand.nameAr }}</td>
-            <td>
+            <td style="cursor: pointer;" (click)="changePhoto(brand.id)">
                 <img *ngIf="brand.image" style="width: 43px; height: 43px;" class="d-block"
                     [src]="sanitizationImage(brand.image)" alt="">
-                <span *ngIf="!brand.image">N/A</span>
+                <button class="btn btn-primary" *ngIf="!brand.image">Add</button>
             </td>
             <td>
                 <div class="row">

@@ -1,0 +1,10 @@
+.buutons {
+    display: flex;
+}
+::ng-deep p-table button  {
+    border-radius: 10px !important;
+}
+
+::ng-deep.header-add button {
+    border-radius: 26px !important;
+}

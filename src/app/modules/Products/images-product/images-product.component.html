@@ -1,0 +1,24 @@
+<p-table class="mt-2" [value]="productImgs" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Image</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Image>
+        <tr>
+            <td>
+                <img *ngIf="Image.image" style="width: 43px; height: 43px;" class="d-block"
+                    [src]="sanitizationImage(Image.image)" alt="">
+                <span *ngIf="!Image.image">N/A</span>
+            </td>
+            <td>
+                <div class="buutons">
+                    <div class="ms-1">
+                        <p-button (onClick)="deleteImage(Image.id)"  label="Delete" severity="danger" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

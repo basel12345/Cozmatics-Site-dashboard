@@ -23,4 +23,8 @@ export class HttpService {
 	delete(url: string, id: number) {
 		return this.httpClient.delete(`${this.api}${url}?Id=${id}`);
 	}
+
+	deleteByParams(url: string, id: number) {
+		return this.httpClient.delete(`${this.api}${url}/${id}`);
+	}
 }
