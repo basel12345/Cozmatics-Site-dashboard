@@ -27,4 +27,8 @@ export class BrandsService {
 	addBrand(data: any) {
 		return this.httpService.post("Brand/Add", data);
 	}
+
+	uploadFile(id: number, data: any) {
+		return this.httpService.post(`Brand/UploadImg/${id}`, data);
+	}
 }

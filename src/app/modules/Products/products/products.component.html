@@ -1,5 +1,5 @@
 <div class="m-2 header-add">
-    <p-button label="Add Product" class="m-10" (onClick)="navigateToAddProduct()"/>
+    <p-button label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
 </div>
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
@@ -15,6 +15,7 @@
             <th>Brand Name</th>
             <th>Rate Value</th>
             <th>Discount%</th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-Product>
@@ -26,7 +27,7 @@
             <td>
                 <img *ngIf="Product.coverImg" style="width: 43px; height: 43px;" class="d-block"
                     [src]="sanitizationImage(Product.coverImg)" alt="">
-                <span *ngIf="!Product.coverImg">N/A</span>
+                <span *ngIf="!Product.coverImg" (click)="changePhoto(Product.id)" style="cursor: pointer;">N/A</span>
             </td>
             <td> {{Product.price}}</td>
             <td> {{Product.qty}}</td>
@@ -35,18 +36,21 @@
             <td> {{Product.rateValue}}</td>
             <td> {{Product.discountPercentage}}</td>
             <td>
-                <div class="row">
-                    <div class="col-md-6 col-12">
+                <div class="buutons">
+                    <div class="ms-1">
                         <p-button (onClick)="deleteProduct(Product.id)" label="Delete" severity="danger" />
                     </div>
-                    <div class="col-md-6 col-12">
+                    <div class="ms-1">
                         <p-button (onClick)="navigateToEditProduct(Product.id)" label="Edit" severity="info" />
                     </div>
-                    <div class="col-md-6 col-12">
+                    <div class="ms-1">
                         <p-button (onClick)="navigateToProductReviews(Product.id)" label="Review" severity="info" />
                     </div>
                     <div class="col-md-6 col-12">
                         <p-button (onClick)="navigateToProductAttr(Product.id ,Product.name )" label="Attribute" severity="info" />
+                    </div>
+                    <div class="ms-1">
+                        <p-button (onClick)="navigateToImages(Product.id)" label="Images" severity="info" />
                     </div>
                 </div>
             </td>

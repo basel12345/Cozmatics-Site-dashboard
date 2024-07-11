@@ -12,46 +12,15 @@ import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
 import * as CryptoJS from 'crypto-js';
 @Component({
-  selector: 'app-products',
-  standalone: true,
+	selector: 'app-products',
+	standalone: true,
 	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+	templateUrl: './products.component.html',
+	styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-	txt:any
-de() {
-	console.log(this.txt)
-    console.log(this.Encrypt(this.txt));
-}
-
-encrypt(data: string): string {
-    const encryptedData = CryptoJS.AES.encrypt(data, 'key').toString();
-    return encryptedData;
-}
-
-
-
-
-
-
-
-public Encrypt(value : string)
-{
-	let key = CryptoJS.enc.Utf8.parse('13313586896631234900207000800912');
-    let   iv =  CryptoJS.enc.Utf8.parse('6896631234900212');
-	var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value), key,
-	{
-		keySize: 128 / 8,
-		iv: iv,
-		mode: CryptoJS.mode.CBC,
-		padding: CryptoJS.pad.Pkcs7
-		}).toString();
-	return encrypted;
-}
-
-  products: any;
-  constructor(
+	products: any;
+	constructor(
 		private productsService: ProductsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
@@ -59,13 +28,12 @@ public Encrypt(value : string)
 	) { }
 
 
-  ngOnInit(): void {
-    this.getAllProducts();
-    console.log(this.products)
+	ngOnInit(): void {
+		this.getAllProducts();
 	}
 
 	getAllProducts() {
-		this.productsService.getAllProducts(1, 10).subscribe((res )=> {
+		this.productsService.getAllProducts(1, 10).subscribe((res) => {
 			this.products = res.products;
 		});
 	}
@@ -77,6 +45,7 @@ public Encrypt(value : string)
 		this.productsService.deleteProduct(id).subscribe(res => {
 			this.toastr.success('Product has been Deleted', 'Success');
 			this.getAllProducts();
+			this.products = this.products.filter((res: any) => res.id !== id);
 		})
 	}
 
@@ -93,5 +62,11 @@ public Encrypt(value : string)
 
 	navigateToProductAttr(id: number , ProductName:string) {
 		this.router.navigate([`AttributeValue/${id}/${ProductName}`]);
+	}
+	navigateToImages(id: number) {
+		this.router.navigate([`images-product/${id}`]);
+	}
+	changePhoto(id: number) {
+		this.router.navigate([`add-image/${id}`])
 	}
 }

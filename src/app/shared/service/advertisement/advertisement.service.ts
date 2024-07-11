@@ -9,7 +9,9 @@ export class AdvertisementsService {
 	constructor(private httpService: HttpService) { }
 
 	getAllAdvertisements() {
-		return this.httpService.get("Advertisement/GetAll")
+		const uniqueParam = `cahceBuster=${new Date().getTime()}`;
+		const cacheBusterUrl = `Advertisement/GetAll?${uniqueParam}`
+		return this.httpService.get(`${cacheBusterUrl}`)
 	}
 
 	getAdvertisementByid(id: number) {
@@ -26,5 +28,9 @@ export class AdvertisementsService {
 
 	addAdvertisement(data: any) {
 		return this.httpService.post("Advertisement/Add", data);
+	}
+
+	uploadFile(id: number, data: any) {
+		return this.httpService.post(`Advertisement/UploadImg/${id}`, data);
 	}
 }

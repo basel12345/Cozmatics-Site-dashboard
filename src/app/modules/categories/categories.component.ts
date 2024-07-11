@@ -43,6 +43,7 @@ export class CategoriesComponent implements OnInit {
 		this.categoriesService.deleteCategory(id).subscribe(res => {
 			this.toastr.success('Category is Deleted', 'Success');
 			this.getAllCategories();
+			this.categories = this.categories.filter((res: any) => res.id !== id);
 		})
 	}
 
@@ -52,5 +53,9 @@ export class CategoriesComponent implements OnInit {
 
 	navigateToEditCategory(id: number) {
 		this.router.navigate([`category/${id}`]);
+	}
+
+	changePhoto(id: number) {
+		this.router.navigate([`image-category/${id}`])
 	}
 }
