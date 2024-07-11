@@ -58,6 +58,14 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/Reviews/reviews/reviews.component").then(c => c.ReviewsComponent)
     },
     {
+        path: "AttributeValue/:ProductId/:ProductName",
+        loadComponent: () => import("./modules/attributes-values/attributes-values.component").then(c => c.AttributesValuesComponent)
+    },
+    {
+        path: "AttributeValue/:ProductId/:ProductName/:AttrId",
+        loadComponent: () => import("./modules/attributes-values/add-atrr-value/add-atrr-value.component").then(c => c.AddAtrrValueComponent)
+    },
+    {
         path: "**",
         pathMatch: "full",
         redirectTo: "categories"

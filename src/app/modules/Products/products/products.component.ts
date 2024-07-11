@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -19,6 +19,37 @@ import { ProductsService } from '../../../shared/service/products/products.servi
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
+	txt:any
+de() {
+	console.log(this.txt)
+    console.log(this.Encrypt(this.txt));
+}
+
+encrypt(data: string): string {
+    const encryptedData = CryptoJS.AES.encrypt(data, 'key').toString();
+    return encryptedData;
+}
+
+
+
+
+
+
+
+public Encrypt(value : string)
+{
+	let key = CryptoJS.enc.Utf8.parse('13313586896631234900207000800912');
+    let   iv =  CryptoJS.enc.Utf8.parse('6896631234900212');
+	var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value), key,
+	{
+		keySize: 128 / 8,
+		iv: iv,
+		mode: CryptoJS.mode.CBC,
+		padding: CryptoJS.pad.Pkcs7
+		}).toString();
+	return encrypted;
+}
+
   products: any;
   constructor(
 		private productsService: ProductsService,
@@ -58,5 +89,9 @@ export class ProductsComponent {
 	}
 	navigateToProductReviews(id: number) {
 		this.router.navigate([`Reviews/${id}`]);
+	}
+
+	navigateToProductAttr(id: number , ProductName:string) {
+		this.router.navigate([`AttributeValue/${id}/${ProductName}`]);
 	}
 }

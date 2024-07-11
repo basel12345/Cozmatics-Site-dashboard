@@ -1,0 +1,31 @@
+<form [formGroup]="attrValueForm" (ngSubmit)="SaveData()">
+    <div class="card p-5 mt-5 mb-2">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <label>QTY</label>
+                <input type="text" formControlName="qty" class="form-control">
+                <span class="text-danger" *ngIf="submitted && attrValueForm.get('qty')?.errors?.['required']">
+                    qty is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Value</label>
+                <input type="text" formControlName="value" class="form-control">
+                <span class="text-danger" *ngIf="submitted && attrValueForm.get('value')?.errors?.['required']">
+                    Value is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
+                <label>Attribute Type</label>
+                <select formControlName="attributeId" class="form-control">
+                    <option *ngFor="let res of AttrType" [value]="res.id">
+                        {{res.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-12 text-end m-2">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
