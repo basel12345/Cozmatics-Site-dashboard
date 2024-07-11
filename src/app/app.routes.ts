@@ -95,8 +95,32 @@ export const routes: Routes = [
         }
     },
     {
+        path: "orders",
+        loadComponent: () => import("./modules/orders/orders.component").then(p=> p.OrdersComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "order-products",
+        loadComponent: () => import("./modules/orders/order-products/order-products.component").then(p=> p.OrderProductsComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
         path: "Product",
         loadComponent: () => import("./modules/Products/add-products/add-products.component").then(c => c.AddProductsComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "users",
+        loadComponent: () => import("./modules/users/users.component").then(c => c.UsersComponent),
         canActivate: [authGuard],
         data: {
             role: 1

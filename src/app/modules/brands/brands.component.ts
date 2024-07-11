@@ -9,16 +9,20 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AddBrandsComponent } from './add-brands/add-brands.component';
 import { BrandsService } from '../../shared/service/brands/brands.service';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
 	selector: 'app-brands',
 	standalone: true,
-	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddBrandsComponent],
+	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddBrandsComponent, PaginatorModule],
 	templateUrl: './brands.component.html',
 	styleUrl: './brands.component.css'
 })
 export class BrandsComponent implements OnInit {
 	brands: any;
+	first: number = 1;
+	totalCount!: number;
+	page: number = 1;
 	constructor(
 		private brandsService: BrandsService,
 		public sanitizer: DomSanitizer,
@@ -31,7 +35,7 @@ export class BrandsComponent implements OnInit {
 	}
 
 	getAllbrands() {
-		this.brandsService.getAllBrands().subscribe(res => {
+		this.brandsService.getAllBrands(this.page, 10).subscribe(res => {
 			this.brands = res;
 		});
 	}
@@ -57,5 +61,11 @@ export class BrandsComponent implements OnInit {
 
 	changePhoto(id: number) {
 		this.router.navigate([`image-brand/${id}`])
+	}
+
+	onPageChange(event: PaginatorState) {
+		if (event.page || event.page === 0) this.page = event.page + 1;
+		if (event.first || event.first === 0) this.first = event.first + 1;
+		this.getAllbrands();
 	}
 }

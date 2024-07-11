@@ -1,0 +1,35 @@
+<p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Customer Name</th>
+            <th>Delivery Type</th>
+            <th>Status</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+        <tr>
+            <td>{{ order.customerId }}</td>
+            <td>{{ order.deliveryType === 0 ? "Home" : "Shop" }}</td>
+            <td>
+                <span class="status" style="background-color: #0284C7;" *ngIf="order.status === 0">Open</span>
+                <span class="status" style="background-color: green;" *ngIf="order.status === 1">Confirmed</span>
+                <span class="status" style="background-color: #DC2626;" *ngIf="order.status === 2">Canceled</span>
+                <span class="status" style="background-color: green;" *ngIf="order.status === 3">Delivered</span>
+                <span class="status" style="background-color: gray;" *ngIf="order.status === 4">Closed</span>
+            </td>
+            <td>{{ order.totalPrice }} SAR</td>
+            <td>
+                <div class="col-md-6 col-12">
+                    <p-button (onClick)="navigateToProduct(order.items)"  label="Products" severity="info" />
+                </div>
+            </td>
+           
+        </tr>
+    </ng-template>
+</p-table>
+<div class="flex-auto mt-4">
+    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="10"
+        [totalRecords]="totalCount"></p-paginator>
+</div>
