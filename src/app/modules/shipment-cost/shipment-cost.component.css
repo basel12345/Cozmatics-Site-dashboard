@@ -1,0 +1,9 @@
+::ng-deep p-table button  {
+    padding: 7px !important;
+    margin: 10px !important;
+    border-radius: 10px !important;
+}
+
+::ng-deep.header-add button {
+    border-radius: 26px !important;
+}

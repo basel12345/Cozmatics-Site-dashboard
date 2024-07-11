@@ -12,6 +12,10 @@ export class CategoriesService {
 		return this.httpService.get(`Category/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
 	}
 
+	getAllWithPaging(pageNo?: number, pageSize?: number) {
+		return this.httpService.get(`Category/GetAllWithPaging?pageNo=${pageNo}&pageSize=${pageSize}`)
+	}
+
 	getCategoryByid(id: number) {
 		return this.httpService.get(`Category/GetById?id=${id}`)
 	}

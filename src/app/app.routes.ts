@@ -191,6 +191,18 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/attributes-values/add-atrr-value/add-atrr-value.component").then(c => c.AddAtrrValueComponent)
     },
     {
+        path: "shipment-cost",
+        loadComponent: () => import("./modules/shipment-cost/shipment-cost.component").then(c => c.ShipmentCostComponent)
+    },
+    {
+        path: "edit-shipment-cost/:id",
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
+    },
+    {
+        path: "add-shipment-cost",
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
+    },
+    {
         path: "**",
         pathMatch: "full",
         redirectTo: "categories"

@@ -35,8 +35,9 @@ export class CategoriesComponent implements OnInit {
 	}
 
 	getAllCategories() {
-		this.categoriesService.getAllCategories(this.page, 10).subscribe(res => {
-			this.categories = res;
+		this.categoriesService.getAllWithPaging(this.page, 10).subscribe(res => {
+			this.categories = res?.['categories'];
+			this.totalCount = res?.['totalCount'];
 		});
 	}
 	

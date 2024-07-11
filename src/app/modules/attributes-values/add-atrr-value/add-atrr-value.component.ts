@@ -88,9 +88,7 @@ export class AddAtrrValueComponent {
         this.router.navigate([`AttributeValue/${this.productId}/${this.ProductName}`]);
         this.submitted = false;
       },error=>{
-     
         this.toastr.error(error.error.msg);
-    
       })
     }
   }
