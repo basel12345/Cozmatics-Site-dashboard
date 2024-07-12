@@ -8,8 +8,12 @@ export class CategoriesService {
 
 	constructor(private httpService: HttpService) { }
 
-	getAllCategories() {
-		return this.httpService.get("Category/GetAll")
+	getAllCategories(pageNo?: number, pageSize?: number) {
+		return this.httpService.get(`Category/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
+	}
+
+	getAllWithPaging(pageNo?: number, pageSize?: number) {
+		return this.httpService.get(`Category/GetAllWithPaging?pageNo=${pageNo}&pageSize=${pageSize}`)
 	}
 
 	getCategoryByid(id: number) {

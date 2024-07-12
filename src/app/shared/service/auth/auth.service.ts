@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpService } from '../http/http.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 
-	constructor(private http: HttpClient) { }
+	constructor(private httpService: HttpService) { }
 
 	register(user: any): Observable<any> {
-		return this.http.post<any>(`http://abaq2023-001-site1.htempurl.com/api/Account/register`, user)
+		return this.httpService.post(`Account/register`, user)
 	}
 
 	login(user: any): Observable<any> {
-		return this.http.post<any>(`http://abaq2023-001-site1.htempurl.com/api/Account/Login`, user)
+		return this.httpService.post(`Account/Login`, user)
 	}
 }

@@ -10,16 +10,20 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
-import * as CryptoJS from 'crypto-js';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+
 @Component({
 	selector: 'app-products',
 	standalone: true,
-	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent],
+	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent, PaginatorModule],
 	templateUrl: './products.component.html',
 	styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 	products: any;
+	first: number = 1;
+	totalCount!: number;
+	page: number = 1;
 	constructor(
 		private productsService: ProductsService,
 		public sanitizer: DomSanitizer,
@@ -33,8 +37,9 @@ export class ProductsComponent {
 	}
 
 	getAllProducts() {
-		this.productsService.getAllProducts(1, 10).subscribe((res) => {
+		this.productsService.getAllProducts(this.page, 10).subscribe((res) => {
 			this.products = res.products;
+			this.totalCount = res.totalCount
 		});
 	}
 	sanitizationImage(image: string): SafeResourceUrl {
@@ -68,5 +73,11 @@ export class ProductsComponent {
 	}
 	changePhoto(id: number) {
 		this.router.navigate([`add-image/${id}`])
+	}
+
+	onPageChange(event: PaginatorState) {
+		if(event.page || event.page === 0) this.page = event.page + 1;
+		if(event.first || event.first === 0) this.first = event.first + 1;
+		this.getAllProducts()
 	}
 }

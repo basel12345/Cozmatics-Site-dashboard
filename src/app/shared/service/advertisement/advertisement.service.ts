@@ -8,9 +8,9 @@ export class AdvertisementsService {
 
 	constructor(private httpService: HttpService) { }
 
-	getAllAdvertisements() {
+	getAllAdvertisements(pageNo?: number, pageSize?: number) {
 		const uniqueParam = `cahceBuster=${new Date().getTime()}`;
-		const cacheBusterUrl = `Advertisement/GetAll?${uniqueParam}`
+		const cacheBusterUrl = `Advertisement/GetAll?pageNo=${pageNo}&pageSize=${pageSize}&${uniqueParam}`
 		return this.httpService.get(`${cacheBusterUrl}`)
 	}
 

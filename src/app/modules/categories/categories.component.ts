@@ -9,16 +9,20 @@ import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AddCategoriesComponent } from './add-categories/add-categories.component';
 import { Router } from '@angular/router';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
 	selector: 'app-categories',
 	standalone: true,
-	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddCategoriesComponent],
+	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddCategoriesComponent, PaginatorModule],
 	templateUrl: './categories.component.html',
 	styleUrl: './categories.component.css'
 })
 export class CategoriesComponent implements OnInit {
 	categories: any;
+	first: number = 1;
+	totalCount!: number;
+	page: number = 1;
 	constructor(
 		private categoriesService: CategoriesService,
 		public sanitizer: DomSanitizer,
@@ -31,10 +35,12 @@ export class CategoriesComponent implements OnInit {
 	}
 
 	getAllCategories() {
-		this.categoriesService.getAllCategories().subscribe(res => {
-			this.categories = res;
+		this.categoriesService.getAllWithPaging(this.page, 10).subscribe(res => {
+			this.categories = res?.['categories'];
+			this.totalCount = res?.['totalCount'];
 		});
 	}
+	
 	sanitizationImage(image: string): SafeResourceUrl {
 		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
@@ -57,5 +63,11 @@ export class CategoriesComponent implements OnInit {
 
 	changePhoto(id: number) {
 		this.router.navigate([`image-category/${id}`])
+	}
+
+	onPageChange(event: PaginatorState) {
+		if (event.page || event.page === 0) this.page = event.page + 1;
+		if (event.first || event.first === 0) this.first = event.first + 1;
+		this.getAllCategories();
 	}
 }

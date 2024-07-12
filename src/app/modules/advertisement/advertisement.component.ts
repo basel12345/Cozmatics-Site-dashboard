@@ -9,16 +9,20 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AddAdvertisementsComponent } from './add-advertisement/add-advertisement.component';
 import { AdvertisementsService } from '../../shared/service/advertisement/advertisement.service';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
 	selector: 'app-advertisements',
 	standalone: true,
-	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddAdvertisementsComponent],
+	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddAdvertisementsComponent, PaginatorModule],
 	templateUrl: './advertisement.component.html',
 	styleUrl: './advertisement.component.css'
 })
 export class AdvertisementsComponent implements OnInit {
 	advertisements: any;
+	first: number = 1;
+	totalCount!: number;
+	page: number = 1;
 	constructor(
 		private advertisementsService: AdvertisementsService,
 		public sanitizer: DomSanitizer,
@@ -31,7 +35,7 @@ export class AdvertisementsComponent implements OnInit {
 	}
 
 	getAlladvertisements() {
-		this.advertisementsService.getAllAdvertisements().subscribe(res => {
+		this.advertisementsService.getAllAdvertisements(this.page, 10).subscribe(res => {
 			this.advertisements = res;
 		});
 	}
@@ -57,5 +61,11 @@ export class AdvertisementsComponent implements OnInit {
 
 	changePhoto(id: number) {
 		this.router.navigate([`image-advertisement/${id}`])
+	}
+
+	onPageChange(event: PaginatorState) {
+		if (event.page || event.page === 0) this.page = event.page + 1;
+		if (event.first || event.first === 0) this.first = event.first + 1;
+		this.getAlladvertisements();
 	}
 }

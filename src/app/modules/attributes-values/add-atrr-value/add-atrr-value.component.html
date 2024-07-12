@@ -15,13 +15,11 @@
                     Value is required
                 </span>
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mt-2">
                 <label>Attribute Type</label>
-                <select formControlName="attributeId" class="form-control">
-                    <option *ngFor="let res of AttrType" [value]="res.id">
-                        {{res.name}}
-                    </option>
-                </select>
+                <div class="flex-auto" *ngFor="let res of AttrType">
+                    <input formControlName="attributeId" [value]="res.id" type="radio">{{res.name}}
+                </div>
             </div>
             <div class="col-12 text-end m-2">
                 <button class="btn btn-primary" type="submit">Save</button>

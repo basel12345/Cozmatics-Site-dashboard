@@ -8,8 +8,8 @@ export class BrandsService {
 
 	constructor(private httpService: HttpService) { }
 
-	getAllBrands() {
-		return this.httpService.get("Brand/GetAll")
+	getAllBrands(pageNo?: number, pageSize?: number) {
+		return this.httpService.get(`Brand/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
 	}
 
 	getBrandByid(id: number) {

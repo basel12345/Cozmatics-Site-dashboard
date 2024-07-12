@@ -95,8 +95,32 @@ export const routes: Routes = [
         }
     },
     {
+        path: "orders",
+        loadComponent: () => import("./modules/orders/orders.component").then(p=> p.OrdersComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "order-products",
+        loadComponent: () => import("./modules/orders/order-products/order-products.component").then(p=> p.OrderProductsComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
         path: "Product",
         loadComponent: () => import("./modules/Products/add-products/add-products.component").then(c => c.AddProductsComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "users",
+        loadComponent: () => import("./modules/users/users.component").then(c => c.UsersComponent),
         canActivate: [authGuard],
         data: {
             role: 1
@@ -165,6 +189,18 @@ export const routes: Routes = [
     {
         path: "AttributeValue/:ProductId/:ProductName/:AttrId",
         loadComponent: () => import("./modules/attributes-values/add-atrr-value/add-atrr-value.component").then(c => c.AddAtrrValueComponent)
+    },
+    {
+        path: "shipment-cost",
+        loadComponent: () => import("./modules/shipment-cost/shipment-cost.component").then(c => c.ShipmentCostComponent)
+    },
+    {
+        path: "edit-shipment-cost/:id",
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
+    },
+    {
+        path: "add-shipment-cost",
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
     },
     {
         path: "**",
