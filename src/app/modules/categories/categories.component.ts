@@ -22,7 +22,7 @@ export class CategoriesComponent implements OnInit {
 	categories: any;
 	first: number = 1;
 	totalCount!: number;
-	page: number = 1;
+	page: number = 0;
 	constructor(
 		private categoriesService: CategoriesService,
 		public sanitizer: DomSanitizer,

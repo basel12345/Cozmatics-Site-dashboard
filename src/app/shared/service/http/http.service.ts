@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class HttpService {
-	api: string = 'http://localhost:5237/api/';//'http://abaq2023-001-site1.htempurl.com/api/';
+	api: string = 'http://localhost:5237/api/';//'http://localhost:5237/api/';
 	constructor(private httpClient: HttpClient) { }
 
 	get(url: string) {

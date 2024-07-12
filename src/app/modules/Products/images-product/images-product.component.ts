@@ -50,4 +50,8 @@ export class ImagesProductComponent implements OnInit {
 			this.toastr.success('Image has been Deleted', 'Success');
 		})
 	}
+
+	changePhoto() {
+		this.router.navigate([`add-image/${this.id}`])
+	}
 }

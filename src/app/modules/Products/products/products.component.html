@@ -6,8 +6,6 @@
         <tr>
             <th>Name</th>
             <th>Name Arabic</th>
-            <th>Description</th>
-            <th>Description Arabic</th>
             <th>image</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -22,8 +20,6 @@
         <tr>
             <td>{{ Product.name }}</td>
             <td>{{ Product.nameAr }}</td>
-            <td>{{ Product.description }}</td>
-            <td>{{ Product.descriptionAr }}</td>
             <td>
                 <img *ngIf="Product.coverImg" style="width: 43px; height: 43px;" class="d-block"
                     [src]="sanitizationImage(Product.coverImg)" alt="">
