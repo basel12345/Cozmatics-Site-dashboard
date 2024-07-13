@@ -12,6 +12,10 @@ export class BrandsService {
 		return this.httpService.get(`Brand/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
 	}
 
+	getAllWithPaging(pageNo?: number, pageSize?: number) {
+		return this.httpService.get(`Brand/GetAllWithPaging?pageNo=${pageNo}&pageSize=${pageSize}`)
+	}
+
 	getBrandByid(id: number) {
 		return this.httpService.get(`Brand/GetById?id=${id}`)
 	}

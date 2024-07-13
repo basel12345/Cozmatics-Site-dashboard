@@ -12,6 +12,10 @@ export class ShipmentCostService {
     return this.httpService.get(`ShipmentCost/GetShipmentCost?pageNo=${pageNo}&pageSize=${pageSize}`);
   }
 
+  getShipmentCostCount() {
+    return this.httpService.get(`ShipmentCost/GetShipmentCostCount`);
+  }
+
   delteShipmentCost(id: number) {
     return this.httpService.deleteByParams(`ShipmentCost/delete`, id);
   }

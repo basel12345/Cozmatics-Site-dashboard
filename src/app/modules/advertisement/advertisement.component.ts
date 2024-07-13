@@ -20,9 +20,9 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 })
 export class AdvertisementsComponent implements OnInit {
 	advertisements: any;
-	first: number = 1;
+	first: number = 0;
 	totalCount!: number;
-	page: number = 1;
+	page: number = 0;
 	constructor(
 		private advertisementsService: AdvertisementsService,
 		public sanitizer: DomSanitizer,
@@ -32,11 +32,20 @@ export class AdvertisementsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getAlladvertisements();
+		this.getAllCount();
 	}
 
 	getAlladvertisements() {
-		this.advertisementsService.getAllAdvertisements(this.page, 10).subscribe(res => {
-			this.advertisements = res;
+		this.advertisementsService.getAllWithPaging(this.page, 10).subscribe(res => {
+			this.advertisements = res?.['advertisements'];
+		});
+	}
+
+	getAllCount() {
+		this.advertisementsService.getAllCount().subscribe(res => {
+			this.totalCount = res;
+			console.log(this.totalCount);
+			
 		});
 	}
 	sanitizationImage(image: string): SafeResourceUrl {
@@ -64,8 +73,8 @@ export class AdvertisementsComponent implements OnInit {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if (event.page || event.page === 0) this.page = event.page + 1;
-		if (event.first || event.first === 0) this.first = event.first + 1;
+		if (event.page || event.page === 0) this.page = event.page;
+		if (event.first || event.first === 0) this.first = event.first;
 		this.getAlladvertisements();
 	}
 }

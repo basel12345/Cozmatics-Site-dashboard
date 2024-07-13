@@ -7,3 +7,7 @@
 ::ng-deep.header-add button {
     border-radius: 26px !important;
 }
+
+.buutons {
+    display: flex;
+}

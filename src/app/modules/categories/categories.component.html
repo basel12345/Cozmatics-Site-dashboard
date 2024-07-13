@@ -28,11 +28,11 @@
                 <p-checkbox [disabled]="true" [(ngModel)]="category.isSelected" [binary]="true" inputId="binary" />
             </td>
             <td>
-                <div class="row">
-                    <div class="col-md-6 col-12">
+                <div class="buutons">
+                    <div class="ms-1">
                         <p-button (onClick)="deleteCategory(category.id)" label="Delete" severity="danger" />
                     </div>
-                    <div class="col-md-6 col-12">
+                    <div class="ms-1">
                         <p-button (onClick)="navigateToEditCategory(category.id)" label="Edit" severity="info" />
                     </div>
                 </div>
@@ -41,6 +41,6 @@
     </ng-template>
 </p-table>
 <div class="flex-auto mt-4">
-    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="10"
+    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="5"
         [totalRecords]="totalCount"></p-paginator>
 </div>

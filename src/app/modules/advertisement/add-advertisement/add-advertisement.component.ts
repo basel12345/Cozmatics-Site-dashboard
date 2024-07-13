@@ -52,7 +52,6 @@ export class AddAdvertisementsComponent implements OnInit {
 	getAllCategories() {
 		this.categoriesService.getAllCategories().subscribe(res => {
 			this.categories = res;
-			console.log(res);
 		})
 	}
 	getAllBrands() {
@@ -89,7 +88,7 @@ export class AddAdvertisementsComponent implements OnInit {
 			return;
 		}
 		if (this.id) {
-			this.advertisementsService.editAdvertisement({ id: this.id, ...this.advertisementForm.getRawValue() }).subscribe(res => {
+			this.advertisementsService.editAdvertisement({ id: +this.id, ...this.advertisementForm.getRawValue() }).subscribe(res => {
 				this.toastr.success('Advertisement is Updated', 'Success');
 				this.router.navigate(['advertisements']);
 				this.submitted = false;

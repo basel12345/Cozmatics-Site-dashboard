@@ -18,9 +18,9 @@ import { ShipmentCostService } from '../../shared/service/shipment-cost/shipment
 })
 export class ShipmentCostComponent implements OnInit {
   shipmentCost: any;
-  first: number = 1;
+  first: number = 0;
   totalCount!: number;
-  page: number = 1;
+  page: number = 0;
   constructor(
     private shipmentCostService: ShipmentCostService,
     private toastr: ToastrService,
@@ -29,6 +29,7 @@ export class ShipmentCostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getShipmentCost();
+    this.getShipmentCostCount();
   }
 
   getShipmentCost() {
@@ -37,13 +38,19 @@ export class ShipmentCostComponent implements OnInit {
     });
   }
 
+  getShipmentCostCount() {
+    this.shipmentCostService.getShipmentCostCount().subscribe(res => {
+      this.totalCount = res;
+    });
+  }
+
   navigateToAddBrand() {
     this.router.navigate(["brand"]);
   }
 
   onPageChange(event: PaginatorState) {
-    if (event.page || event.page === 0) this.page = event.page + 1;
-    if (event.first || event.first === 0) this.first = event.first + 1;
+    if (event.page || event.page === 0) this.page = event.page;
+    if (event.first || event.first === 0) this.first = event.first;
     this.getShipmentCost();
   }
 

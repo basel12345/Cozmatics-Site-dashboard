@@ -19,9 +19,9 @@ import { UsersService } from '../../shared/service/users/users.service';
 })
 export class UsersComponent {
   users: any;
-  first: number = 1;
+  first: number = 0;
   totalCount!: number;
-  page: number = 1;
+  page: number = 0;
   constructor(
     public sanitizer: DomSanitizer,
     private toastr: ToastrService,
@@ -54,8 +54,8 @@ export class UsersComponent {
   }
 
   onPageChange(event: PaginatorState) {
-    if (event.page || event.page === 0) this.page = event.page + 1;
-    if (event.first || event.first === 0) this.first = event.first + 1;
+    if (event.page || event.page === 0) this.page = event.page;
+    if (event.first || event.first === 0) this.first = event.first;
     this.getAllusers();
   }
 

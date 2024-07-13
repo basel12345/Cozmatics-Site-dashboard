@@ -14,6 +14,18 @@ export class AdvertisementsService {
 		return this.httpService.get(`${cacheBusterUrl}`)
 	}
 
+	getAllWithPaging(pageNo?: number, pageSize?: number) {
+		const uniqueParam = `cahceBuster=${new Date().getTime()}`;
+		const cacheBusterUrl = `Advertisement/GetAllWithPaging?pageNo=${pageNo}&pageSize=${pageSize}&${uniqueParam}`
+		return this.httpService.get(`${cacheBusterUrl}`)
+	}
+
+	getAllCount() {
+		const uniqueParam = `cahceBuster=${new Date().getTime()}`;
+		const cacheBusterUrl = `Advertisement/GetAllCount?${uniqueParam}`
+		return this.httpService.get(`${cacheBusterUrl}`)
+	}
+
 	getAdvertisementByid(id: number) {
 		return this.httpService.get(`Advertisement/GetById?id=${id}`)
 	}

@@ -20,9 +20,9 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 })
 export class BrandsComponent implements OnInit {
 	brands: any;
-	first: number = 1;
+	first: number =0;
 	totalCount!: number;
-	page: number = 1;
+	page: number = 0;
 	constructor(
 		private brandsService: BrandsService,
 		public sanitizer: DomSanitizer,
@@ -35,8 +35,9 @@ export class BrandsComponent implements OnInit {
 	}
 
 	getAllbrands() {
-		this.brandsService.getAllBrands(this.page, 10).subscribe(res => {
-			this.brands = res;
+		this.brandsService.getAllWithPaging(this.page, 10).subscribe(res => {
+			this.brands = res['brands'];
+			this.totalCount = res['totalCount'];
 		});
 	}
 	sanitizationImage(image: string): SafeResourceUrl {
@@ -48,6 +49,8 @@ export class BrandsComponent implements OnInit {
 			this.toastr.success('Brand is Deleted', 'Success');
 			this.getAllbrands();
 			this.brands = this.brands.filter((res: any) => res.id !== id);
+		}, err => {
+			this.toastr.error(err?.error?.msg);
 		})
 	}
 
@@ -64,8 +67,8 @@ export class BrandsComponent implements OnInit {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if (event.page || event.page === 0) this.page = event.page + 1;
-		if (event.first || event.first === 0) this.first = event.first + 1;
+		if (event.page || event.page === 0) this.page = event.page;
+		if (event.first || event.first === 0) this.first = event.first;
 		this.getAllbrands();
 	}
 }

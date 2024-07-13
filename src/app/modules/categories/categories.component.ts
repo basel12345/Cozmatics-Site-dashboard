@@ -20,7 +20,7 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 })
 export class CategoriesComponent implements OnInit {
 	categories: any;
-	first: number = 1;
+	first: number = 0;
 	totalCount!: number;
 	page: number = 0;
 	constructor(
@@ -35,12 +35,12 @@ export class CategoriesComponent implements OnInit {
 	}
 
 	getAllCategories() {
-		this.categoriesService.getAllWithPaging(this.page, 10).subscribe(res => {
+		this.categoriesService.getAllWithPaging(this.page, 5).subscribe(res => {
 			this.categories = res?.['categories'];
 			this.totalCount = res?.['totalCount'];
 		});
 	}
-	
+
 	sanitizationImage(image: string): SafeResourceUrl {
 		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
@@ -50,6 +50,8 @@ export class CategoriesComponent implements OnInit {
 			this.toastr.success('Category is Deleted', 'Success');
 			this.getAllCategories();
 			this.categories = this.categories.filter((res: any) => res.id !== id);
+		}, err => {
+			this.toastr.error(err?.error?.msg);
 		})
 	}
 
@@ -66,8 +68,8 @@ export class CategoriesComponent implements OnInit {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if (event.page || event.page === 0) this.page = event.page + 1;
-		if (event.first || event.first === 0) this.first = event.first + 1;
+		if (event.page || event.page === 0) this.page = event.page;
+		if (event.first || event.first === 0) this.first = event.first;
 		this.getAllCategories();
 	}
 }
