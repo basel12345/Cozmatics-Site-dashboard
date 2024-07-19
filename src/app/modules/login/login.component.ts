@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/service/auth/auth.service';
 import { LoadingService } from '../../shared/service/loading/loading.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-login',
@@ -20,10 +21,10 @@ import { LoadingService } from '../../shared/service/loading/loading.service';
 export class LoginComponent implements OnInit {
 	submitted: boolean = false;
 	loginForm!: FormGroup;
-	constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private loadingService: LoadingService) { }
+	constructor(private fb: FormBuilder, private service: AuthService, private router: Router, private loadingService: LoadingService, private toastr: ToastrService) { }
 
 	ngOnInit(): void {
-    this.loadingService.hideLoading();
+		this.loadingService.hideLoading();
 		this.createLoginForm();
 	}
 
@@ -41,6 +42,9 @@ export class LoginComponent implements OnInit {
 				localStorage.setItem('user', JSON.stringify(res));
 				localStorage.setItem('token', JSON.stringify(res.token));
 				this.router.navigate(['home']);
+			}, err => {
+				this.toastr.error('Please verify your email and password', 'Error');
+				this.loadingService.hideLoading();
 			});
 		}
 	}

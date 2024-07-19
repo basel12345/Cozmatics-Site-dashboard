@@ -20,9 +20,9 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 })
 export class CategoriesComponent implements OnInit {
 	categories: any;
-	first: number = 0;
+	first: number = 1;
 	totalCount!: number;
-	page: number = 0;
+	page: number = 1;
 	constructor(
 		private categoriesService: CategoriesService,
 		public sanitizer: DomSanitizer,
@@ -68,8 +68,8 @@ export class CategoriesComponent implements OnInit {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if (event.page || event.page === 0) this.page = event.page;
-		if (event.first || event.first === 0) this.first = event.first;
+		if (event.page || event.page === 0) this.page = event.page + 1;
+		if (event.first || event.first === 0) this.first = event.first + 1;
 		this.getAllCategories();
 	}
 }
