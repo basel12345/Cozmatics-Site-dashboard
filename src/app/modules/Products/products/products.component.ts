@@ -50,7 +50,6 @@ export class ProductsComponent {
 		this.productsService.deleteProduct(id).subscribe(res => {
 			this.toastr.success('Product has been Deleted', 'Success');
 			this.getAllProducts();
-			this.products = this.products.filter((res: any) => res.id !== id);
 		})
 	}
 

@@ -48,7 +48,6 @@ export class BrandsComponent implements OnInit {
 		this.brandsService.deleteBrand(id).subscribe(res => {
 			this.toastr.success('Brand is Deleted', 'Success');
 			this.getAllbrands();
-			this.brands = this.brands.filter((res: any) => res.id !== id);
 		}, err => {
 			this.toastr.error(err?.error?.msg);
 		})

@@ -56,7 +56,6 @@ export class AdvertisementsComponent implements OnInit {
 		this.advertisementsService.deleteAdvertisement(id).subscribe(res => {
 			this.toastr.success('Advertisement is Deleted', 'Success');
 			this.getAlladvertisements();
-			this.advertisements = this.advertisements.filter((res: any) => res.id !== id);
 		})
 	}
 

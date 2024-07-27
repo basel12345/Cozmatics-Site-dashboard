@@ -41,7 +41,6 @@ export class ReviewsComponent {
     this.reviewService.deleteReview(id).subscribe(res => {
       this.toastr.success('review is Deleted', 'Success');
       this.getAllReviews();
-      this.reviews = this.reviews.filter((res: any) => res.id !== id);
     })
   }
 }

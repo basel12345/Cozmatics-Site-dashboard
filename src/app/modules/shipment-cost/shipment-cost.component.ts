@@ -62,7 +62,6 @@ export class ShipmentCostComponent implements OnInit {
 		this.shipmentCostService.delteShipmentCost(id).subscribe(res => {
 			this.toastr.success('Shipment Cost is Deleted', 'Success');
 			this.getShipmentCost();
-			this.shipmentCost = this.shipmentCost.filter((res: any) => res.id !== id);
 		})
 	}
 
