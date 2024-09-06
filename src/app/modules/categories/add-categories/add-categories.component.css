@@ -1,3 +1,11 @@
 .error-danger {
     color: red;
 }
+
+::ng-deep .p-dropdown {
+    width: 100% !important;
+}
+
+::ng-deep .p-dropdown-items {
+    padding: 0 !important;
+}

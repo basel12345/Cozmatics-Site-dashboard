@@ -39,6 +39,8 @@ export class AddCategoriesComponent implements OnInit {
 	getAllCategories() {
 		this.categoriesService.getAllCategories().subscribe(res => {
 			this.categories = res;
+			console.log(this.categories);
+			
 		})
 	}
 
