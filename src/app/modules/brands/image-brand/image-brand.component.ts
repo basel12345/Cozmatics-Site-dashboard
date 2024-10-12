@@ -31,7 +31,7 @@ export class ImageBrandComponent {
 
 	ngOnInit(): void {
 		this.brandsService.getBrandByid(this.id).subscribe(res => {
-			if (res.img) this.sanitizationImage(res.img)
+			if (res.image) this.sanitizationImage(res.image)
 		})
 	}
 
