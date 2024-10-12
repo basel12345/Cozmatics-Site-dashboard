@@ -69,7 +69,7 @@ export class AddProductsComponent {
 			price: [null, [Validators.required, Validators.min(1)]],
 			qty: [null, [Validators.required, Validators.min(1)]],
 			discountPercentage: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-			tag: [1]
+			tag: [null]
 		})
 	}
 
