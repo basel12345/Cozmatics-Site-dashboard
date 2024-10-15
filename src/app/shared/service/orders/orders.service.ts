@@ -11,11 +11,18 @@ export class OrdersService {
   items: any;
 
   getAllOrders(pageNo?: number, pageSize?: number) {
-		return this.httpService.get(`Order/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
-	}
+    return this.httpService.get(`Order/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
+  }
 
 
   gettSalesOrderCount() {
-		return this.httpService.get(`Order/GetSalesOrderCount`)
+    return this.httpService.get(`Order/GetSalesOrderCount`)
+  }
+
+  changeStatus(status: number, id: number) {
+    return this.httpService.put(`Order/UpdateOrderStatus`, {
+      id: id,
+      status: status
+    })
   }
 }

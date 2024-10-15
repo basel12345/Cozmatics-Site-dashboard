@@ -65,4 +65,11 @@ export class OrdersComponent {
     this.ordersService.items = items;
     this.router.navigate(['order-products']);
   }
+
+  changeStatus(status: number, id: number) {
+    this.ordersService.changeStatus(status, id).subscribe(res => {
+      console.log(res);
+      this.getAllorders();
+    })
+  }
 }

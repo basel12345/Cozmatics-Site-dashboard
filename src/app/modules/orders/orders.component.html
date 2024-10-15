@@ -10,13 +10,13 @@
     </ng-template>
     <ng-template pTemplate="body" let-order>
         <tr>
-            <td>{{ order.customerId }}</td>
+            <td>{{ order.customerName }}</td>
             <td>{{ order.deliveryType === 0 ? "Home" : "Shop" }}</td>
             <td>
                 <span class="status" style="background-color: #0284C7;" *ngIf="order.status === 0">Open</span>
-                <span class="status" style="background-color: green;" *ngIf="order.status === 1">Confirmed</span>
-                <span class="status" style="background-color: #DC2626;" *ngIf="order.status === 2">Canceled</span>
-                <span class="status" style="background-color: green;" *ngIf="order.status === 3">Delivered</span>
+                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: green;" *ngIf="order.status === 1">Confirmed</button>
+                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: #DC2626;" *ngIf="order.status === 2">Canceled</button>
+                <button (click)="changeStatus(4, order.id)" class="status" style="background-color: green;" *ngIf="order.status === 3">Delivered</button>
                 <span class="status" style="background-color: gray;" *ngIf="order.status === 4">Closed</span>
             </td>
             <td>{{ order.totalPrice }} SAR</td>
