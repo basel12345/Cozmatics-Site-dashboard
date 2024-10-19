@@ -1,19 +1,64 @@
 <div class="m-2 header-add">
     <p-button label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
 </div>
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="products" 
+[lazy]="true" 
+(onLazyLoad)="loadOrdersLazy($event)"
+[tableStyle]="{ 'min-width': '50rem' }"
+[loading]="loading">
     <ng-template pTemplate="header">
         <tr>
-            <th>Name</th>
-            <th>Name Arabic</th>
-            <th>image</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Category Name</th>
-            <th>Brand Name</th>
-            <th>Rate Value</th>
-            <th>Discount%</th>
-            <th></th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Name
+                    <p-columnFilter type="text" field="Name" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Name Arabic
+                    <p-columnFilter type="text" field="NameAr" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                </div>
+            </th>
+            <th>
+                image
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Price
+                    <p-columnFilter type="numeric" field="Price" currency="SAR" [showMenu]="false"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Quantity
+                    <p-columnFilter type="numeric" field="Qty" [showMenu]="false"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Category Name
+                    <p-columnFilter type="text" field="CategoryName" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Brand Name
+                    <p-columnFilter type="text" field="BrandName" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Rate Value
+                    <p-columnFilter type="numeric" field="RateValue" [maxFractionDigits]="2" [showMenu]="false"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Discount%
+                    <p-columnFilter type="numeric" field="DiscountPercentage" [showMenu]="false"></p-columnFilter>
+                </div>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-Product>

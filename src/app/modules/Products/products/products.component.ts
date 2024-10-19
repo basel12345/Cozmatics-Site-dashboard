@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { FilterMatchMode, FilterMetadata, SelectItem } from 'primeng/api';
 
 @Component({
 	selector: 'app-products',
@@ -24,20 +25,39 @@ export class ProductsComponent {
 	first: number = 1;
 	totalCount!: number;
 	page: number = 1;
+	loading: boolean = false;
+	matchModeOptions: SelectItem[];
+	Filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined; } | undefined;
 	constructor(
 		private productsService: ProductsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
-	) { }
-
-
-	ngOnInit(): void {
-		this.getAllProducts();
+	) { 
+		this.matchModeOptions = [
+			{ 
+				label: 'Starts With', 
+				value: FilterMatchMode.STARTS_WITH 
+			},
+			{ 
+				label: 'Contains', 
+				value: FilterMatchMode.CONTAINS 
+			},
+			{     
+				label: 'Equals', 
+				value: FilterMatchMode.EQUALS
+			},
+	  ];
 	}
 
-	getAllProducts() {
-		this.productsService.getAllProducts(this.page, 10).subscribe((res) => {
+
+
+	loadOrdersLazy(event: TableLazyLoadEvent) {
+		this.Filters = event.filters;
+		this.getAllProductsWithFilters();
+	  }
+	getAllProductsWithFilters() {
+		this.productsService.getAllProductsWithFilters(this.page, 10,this.Filters).subscribe((res:any) => {
 			this.products = res.products;
 			this.totalCount = res.totalCount
 		});
@@ -49,7 +69,7 @@ export class ProductsComponent {
 	deleteProduct(id: number) {
 		this.productsService.deleteProduct(id).subscribe(res => {
 			this.toastr.success('Product has been Deleted', 'Success');
-			this.getAllProducts();
+			this.getAllProductsWithFilters();
 		})
 	}
 
@@ -77,6 +97,6 @@ export class ProductsComponent {
 	onPageChange(event: PaginatorState) {
 		if(event.page || event.page === 0) this.page = event.page + 1;
 		if(event.first || event.first === 0) this.first = event.first + 1;
-		this.getAllProducts()
+		this.getAllProductsWithFilters()
 	}
 }
