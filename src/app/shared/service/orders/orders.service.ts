@@ -10,14 +10,10 @@ export class OrdersService {
   constructor(private httpService: HttpService) { }
   items: any;
 
-  getAllOrders(pageNo?: number, pageSize?: number) {
-    return this.httpService.get(`Order/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`)
+  getAllOrdersWithFilters(Filters:any,pageNo?: number, pageSize?: number) {
+    return this.httpService.post(`Order/GetAllWithFilters?pageNo=${pageNo}&pageSize=${pageSize}`,Filters);
   }
 
-
-  gettSalesOrderCount() {
-    return this.httpService.get(`Order/GetSalesOrderCount`)
-  }
 
   changeStatus(status: number, id: number) {
     return this.httpService.put(`Order/UpdateOrderStatus`, {

@@ -1,4 +1,9 @@
-<p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table 
+    [value]="orders" 
+    [lazy]="true" 
+    (onLazyLoad)="loadOrdersLazy($event)"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
             <th>Customer Name</th>
@@ -6,6 +11,36 @@
             <th>Status</th>
             <th>Total Price</th>
             <th></th>
+        </tr>        
+        <tr>
+            <th>
+                <p-columnFilter type="text" field="customerName" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter field="deliveryType" matchMode="equals" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="deliveryTypeOptions" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                <span>{{option.label}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="statusOptions" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                <span>{{option.label}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="numeric" field="TotalPrice" matchMode="equals" [showMenu]="false"></p-columnFilter>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order>

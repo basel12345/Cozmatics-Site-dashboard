@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { BrandsService } from '../../shared/service/brands/brands.service';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { OrdersService } from '../../shared/service/orders/orders.service';
+import { FilterMatchMode, SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-orders',
@@ -23,28 +24,58 @@ export class OrdersComponent {
   first: number = 1;
   totalCount!: number;
   page: number = 1;
+  loading: boolean = false;
+  matchModeOptions: SelectItem[];
+  statusOptions = [
+    { label: 'Open', value: 0 },
+    { label: 'Confirmed', value: 1 },
+    { label: 'Canceled', value: 2 },
+    { label: 'Delivered', value: 3 },
+    { label: 'Closed', value: 4 }
+];
+
+deliveryTypeOptions = [
+    { label: 'Home', value: 0 },
+    { label: 'Shop', value: 1 }
+];
+  Filters: any;
   constructor(
     private ordersService: OrdersService,
     public sanitizer: DomSanitizer,
     private toastr: ToastrService,
     private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.getAllorders();
+  ) { 
+    this.matchModeOptions = [
+      { 
+          label: 'Starts With', 
+          value: FilterMatchMode.STARTS_WITH 
+      },
+      { 
+          label: 'Contains', 
+          value: FilterMatchMode.CONTAINS 
+      },
+      {     
+          label: 'Equals', 
+          value: FilterMatchMode.EQUALS
+      },
+];
   }
 
-  gettSalesOrderCount() {
-    this.ordersService.gettSalesOrderCount().subscribe(res => {
-      this.totalCount = res;
-    });
+
+  loadOrdersLazy(event: TableLazyLoadEvent) {
+    this.getAllordersWithFilters(event.filters);
   }
 
-  getAllorders() {
-    this.ordersService.getAllOrders(this.page, 10).subscribe(res => {
-      this.orders = res;
-      this.gettSalesOrderCount();
-    });
+  getAllordersWithFilters(filters:any) {
+    this.Filters = filters;
+    this.loading = true;
+    this.ordersService
+      .getAllOrdersWithFilters(filters,this.page, 10)
+      .subscribe((response: any) => {
+        this.orders = response.orders;
+        this.totalCount = response.count;
+        this.loading = false;
+      });
   }
   sanitizationImage(image: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
@@ -57,7 +88,7 @@ export class OrdersComponent {
   onPageChange(event: PaginatorState) {
     if (event.page || event.page === 0) this.page = event.page + 1;
     if (event.first || event.first === 0) this.first = event.first + 1;
-    this.getAllorders();
+    this.getAllordersWithFilters(this.Filters);
   }
 
   navigateToProduct(items: any) {
@@ -68,8 +99,7 @@ export class OrdersComponent {
 
   changeStatus(status: number, id: number) {
     this.ordersService.changeStatus(status, id).subscribe(res => {
-      console.log(res);
-      this.getAllorders();
+      this.getAllordersWithFilters(this.Filters);
     })
   }
 }
