@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class ShipmentCostService {
     return this.httpService.get(`ShipmentCost/GetShipmentCost?pageNo=${pageNo}&pageSize=${pageSize}`);
   }
 
+  getShipmentCostWithFilters(pageNo: number, pageSize: number, Filters: any): Observable<any> {
+    return this.httpService.post(`ShipmentCost/GetShipmentCostWithFilters?pageNo=${pageNo}&pageSize=${pageSize}`, Filters);
+  }
+
   getShipmentCostCount() {
     return this.httpService.get(`ShipmentCost/GetShipmentCostCount`);
   }
@@ -21,13 +26,13 @@ export class ShipmentCostService {
   }
 
   getShipmentCostById() {
-    return this.httpService.get(`ShipmentCost/GetShipmentLocations`); 
+    return this.httpService.get(`ShipmentCost/GetShipmentLocations`);
   }
   addShipmentCost(data: any) {
-    return this.httpService.post(`ShipmentCost/GetShipmentCost`, data); 
+    return this.httpService.post(`ShipmentCost/GetShipmentCost`, data);
   }
 
   editShipmentCost(data: any) {
-    return this.httpService.put(`ShipmentCost/SetShipmentCost${data.id}/${data.cost}`, {}); 
+    return this.httpService.put(`ShipmentCost/SetShipmentCost${data.id}/${data.cost}`, {});
   }
 }

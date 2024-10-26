@@ -22,8 +22,6 @@ export class OrderProductsComponent {
 	) { 
     const items = localStorage.getItem("items")
     if(items) this.items = JSON.parse(items);
-  console.log( this.items);
-  
     this.loadingSerive.hideLoading();
   }
 

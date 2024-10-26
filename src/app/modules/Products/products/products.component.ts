@@ -33,21 +33,21 @@ export class ProductsComponent {
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
-	) { 
+	) {
 		this.matchModeOptions = [
-			{ 
-				label: 'Starts With', 
-				value: FilterMatchMode.STARTS_WITH 
+			{
+				label: 'Starts With',
+				value: FilterMatchMode.STARTS_WITH
 			},
-			{ 
-				label: 'Contains', 
-				value: FilterMatchMode.CONTAINS 
+			{
+				label: 'Contains',
+				value: FilterMatchMode.CONTAINS
 			},
-			{     
-				label: 'Equals', 
+			{
+				label: 'Equals',
 				value: FilterMatchMode.EQUALS
 			},
-	  ];
+		];
 	}
 
 
@@ -55,9 +55,9 @@ export class ProductsComponent {
 	loadOrdersLazy(event: TableLazyLoadEvent) {
 		this.Filters = event.filters;
 		this.getAllProductsWithFilters();
-	  }
+	}
 	getAllProductsWithFilters() {
-		this.productsService.getAllProductsWithFilters(this.page, 10,this.Filters).subscribe((res:any) => {
+		this.productsService.getAllProductsWithFilters(this.page, 10, this.Filters).subscribe((res: any) => {
 			this.products = res.products;
 			this.totalCount = res.totalCount
 		});
@@ -84,7 +84,7 @@ export class ProductsComponent {
 		this.router.navigate([`Reviews/${id}`]);
 	}
 
-	navigateToProductAttr(id: number , ProductName:string) {
+	navigateToProductAttr(id: number, ProductName: string) {
 		this.router.navigate([`AttributeValue/${id}/${ProductName}`]);
 	}
 	navigateToImages(id: number) {
@@ -95,8 +95,8 @@ export class ProductsComponent {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if(event.page || event.page === 0) this.page = event.page + 1;
-		if(event.first || event.first === 0) this.first = event.first + 1;
+		if (event.page || event.page === 0) this.page = event.page + 1;
+		if (event.first || event.first === 0) this.first = event.first + 1;
 		this.getAllProductsWithFilters()
 	}
 }

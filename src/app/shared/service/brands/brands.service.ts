@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,6 +15,10 @@ export class BrandsService {
 
 	getAllWithPaging(pageNo?: number, pageSize?: number) {
 		return this.httpService.get(`Brand/GetAllWithPaging?pageNo=${pageNo}&pageSize=${pageSize}`)
+	}
+
+	getAllBrandsWithFilters(pageNo: number, pageSize: number, Filters: any): Observable<any> {
+		return this.httpService.post(`Brand/GetAllWithPagingAndFilters?pageNo=${pageNo}&pageSize=${pageSize}`, Filters)
 	}
 
 	getBrandByid(id: number) {

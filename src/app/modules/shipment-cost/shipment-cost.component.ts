@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { ShipmentCostService } from '../../shared/service/shipment-cost/shipment-cost.service';
+import { FilterMatchMode, FilterMetadata, SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-shipment-cost',
@@ -16,31 +17,51 @@ import { ShipmentCostService } from '../../shared/service/shipment-cost/shipment
   templateUrl: './shipment-cost.component.html',
   styleUrl: './shipment-cost.component.css'
 })
-export class ShipmentCostComponent implements OnInit {
+export class ShipmentCostComponent {
   shipmentCost: any;
   first: number = 1;
   totalCount!: number;
   page: number = 1;
+  Filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined; } | undefined;
+  loading: boolean = false;
+  matchModeOptions!: SelectItem[];
   constructor(
     private shipmentCostService: ShipmentCostService,
     private toastr: ToastrService,
     private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.getShipmentCost();
-    this.getShipmentCostCount();
+  ) {
+    this.matchModeOptions = [
+      {
+        label: 'Starts With',
+        value: FilterMatchMode.STARTS_WITH
+      },
+      {
+        label: 'Contains',
+        value: FilterMatchMode.CONTAINS
+      },
+      {
+        label: 'Equals',
+        value: FilterMatchMode.EQUALS
+      },
+    ];
   }
 
-  getShipmentCost() {
-    this.shipmentCostService.getShipmentCost(this.page, 10).subscribe(res => {
-      this.shipmentCost = res;
-    });
+  loadOrdersLazy(event: TableLazyLoadEvent) {
+    this.Filters = event.filters;
+    this.getShipmentCostWithFilters();
   }
+
 
   getShipmentCostCount() {
     this.shipmentCostService.getShipmentCostCount().subscribe(res => {
       this.totalCount = res;
+    });
+  }
+
+  getShipmentCostWithFilters() {
+    this.shipmentCostService.getShipmentCostWithFilters(this.page, 10, this.Filters).subscribe(res => {
+      this.getShipmentCostCount();
+      this.shipmentCost = res;
     });
   }
 
@@ -51,7 +72,7 @@ export class ShipmentCostComponent implements OnInit {
   onPageChange(event: PaginatorState) {
     if (event.page || event.page === 0) this.page = event.page + 1;
     if (event.first || event.first === 0) this.first = event.first + 1;
-    this.getShipmentCost();
+    this.getShipmentCostWithFilters();
   }
 
   navigateToEditShipmentCost(id: any) {
@@ -59,11 +80,11 @@ export class ShipmentCostComponent implements OnInit {
   }
 
   deleteShipmentCost(id: number) {
-		this.shipmentCostService.delteShipmentCost(id).subscribe(res => {
-			this.toastr.success('Shipment Cost is Deleted', 'Success');
-			this.getShipmentCost();
-		})
-	}
+    this.shipmentCostService.delteShipmentCost(id).subscribe(res => {
+      this.toastr.success('Shipment Cost is Deleted', 'Success');
+      this.getShipmentCostWithFilters();
+    })
+  }
 
   navigateToAddShipmentCost() {
     this.router.navigate([`add-shipment-cost`]);

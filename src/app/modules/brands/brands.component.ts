@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AddBrandsComponent } from './add-brands/add-brands.component';
 import { BrandsService } from '../../shared/service/brands/brands.service';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { FilterMatchMode, FilterMetadata, SelectItem } from 'primeng/api';
 
 @Component({
 	selector: 'app-brands',
@@ -18,24 +19,44 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 	templateUrl: './brands.component.html',
 	styleUrl: './brands.component.css'
 })
-export class BrandsComponent implements OnInit {
+export class BrandsComponent {
 	brands: any;
 	first: number =1;
 	totalCount!: number;
 	page: number = 1;
+	Filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined; } | undefined;
+	loading: boolean = false;
+	matchModeOptions!: SelectItem[];
+
 	constructor(
 		private brandsService: BrandsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
-	) { }
-
-	ngOnInit(): void {
-		this.getAllbrands();
+	) { 
+		this.matchModeOptions = [
+			{
+				label: 'Starts With',
+				value: FilterMatchMode.STARTS_WITH
+			},
+			{
+				label: 'Contains',
+				value: FilterMatchMode.CONTAINS
+			},
+			{
+				label: 'Equals',
+				value: FilterMatchMode.EQUALS
+			},
+		];
 	}
 
-	getAllbrands() {
-		this.brandsService.getAllWithPaging(this.page, 10).subscribe(res => {
+	loadOrdersLazy(event: TableLazyLoadEvent) {
+		this.Filters = event.filters;
+		this.getAllCategoriesWithFilters();
+	}
+
+	getAllCategoriesWithFilters() {
+		this.brandsService.getAllBrandsWithFilters(this.page, 10, this.Filters).subscribe(res => {
 			this.brands = res['brands'];
 			this.totalCount = res['totalCount'];
 		});
@@ -47,7 +68,7 @@ export class BrandsComponent implements OnInit {
 	deleteBrand(id: number) {
 		this.brandsService.deleteBrand(id).subscribe(res => {
 			this.toastr.success('Brand is Deleted', 'Success');
-			this.getAllbrands();
+			this.getAllCategoriesWithFilters();
 		}, err => {
 			this.toastr.error(err?.error?.msg);
 		})
@@ -68,6 +89,6 @@ export class BrandsComponent implements OnInit {
 	onPageChange(event: PaginatorState) {
 		if (event.page || event.page === 0) this.page = event.page + 1;
 		if (event.first || event.first === 0) this.first = event.first + 1;
-		this.getAllbrands();
+		this.getAllCategoriesWithFilters();
 	}
 }

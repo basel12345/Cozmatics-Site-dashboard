@@ -1,14 +1,44 @@
 <div class="m-2 header-add">
     <p-button label="Add Shipment Cost" class="m-10" (onClick)="navigateToAddShipmentCost()" />
 </div>
-<p-table [value]="shipmentCost" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="shipmentCost" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)"
+    [tableStyle]="{ 'min-width': '50rem' }" [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
-            <th>City Name</th>
-            <th>City Name Arabic</th>
-            <th>Area</th>
-            <th>Area Arabic</th>
-            <th>Price</th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    City Name
+                    <p-columnFilter type="text" field="city" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    City Name Arabic
+                    <p-columnFilter type="text" field="cityAr" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Area
+                    <p-columnFilter type="text" field="Area" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Area Arabic
+                    <p-columnFilter type="text" field="areaAr" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Price
+                    <p-columnFilter type="numeric" field="cost" currency="SAR" [showMenu]="false"></p-columnFilter>
+                </div>
+            </th>
             <th></th>
         </tr>
     </ng-template>
@@ -22,10 +52,10 @@
             <td>
                 <div class="row">
                     <div class="col-md-6 col-12">
-                        <p-button (onClick)="navigateToEditShipmentCost(shipment.id)" label="Edit" severity="info" />
+                        <p-button class="action" (onClick)="navigateToEditShipmentCost(shipment.id)" label="Edit" severity="info" />
                     </div>
                     <div class="col-md-6 col-12">
-                        <p-button (onClick)="deleteShipmentCost(shipment.id)" label="Delete" severity="danger" />
+                        <p-button class="action" (onClick)="deleteShipmentCost(shipment.id)" label="Delete" severity="danger" />
                     </div>
                 </div>
             </td>

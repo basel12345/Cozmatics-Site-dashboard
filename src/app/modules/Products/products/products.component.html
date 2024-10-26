@@ -1,23 +1,22 @@
 <div class="m-2 header-add">
     <p-button label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
 </div>
-<p-table [value]="products" 
-[lazy]="true" 
-(onLazyLoad)="loadOrdersLazy($event)"
-[tableStyle]="{ 'min-width': '50rem' }"
-[loading]="loading">
+<p-table [value]="products" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)" [tableStyle]="{ 'min-width': '50rem' }"
+    [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Name
-                    <p-columnFilter type="text" field="Name" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                    <p-columnFilter type="text" field="Name" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Name Arabic
-                    <p-columnFilter type="text" field="NameAr" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                    <p-columnFilter type="text" field="NameAr" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
                 </div>
             </th>
             <th>
@@ -38,19 +37,22 @@
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Category Name
-                    <p-columnFilter type="text" field="CategoryName" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                    <p-columnFilter type="text" field="CategoryName" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Brand Name
-                    <p-columnFilter type="text" field="BrandName" [showAddButton]="false" [showOperator]="false" [matchModeOptions]="matchModeOptions" ></p-columnFilter>
+                    <p-columnFilter type="text" field="BrandName" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Rate Value
-                    <p-columnFilter type="numeric" field="RateValue" [maxFractionDigits]="2" [showMenu]="false"></p-columnFilter>
+                    <p-columnFilter type="numeric" field="RateValue" [maxFractionDigits]="2"
+                        [showMenu]="false"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
@@ -88,7 +90,8 @@
                         <p-button (onClick)="navigateToProductReviews(Product.id)" label="Review" severity="info" />
                     </div>
                     <div class="ms-1">
-                        <p-button (onClick)="navigateToProductAttr(Product.id ,Product.name )" label="Attribute" severity="info" />
+                        <p-button (onClick)="navigateToProductAttr(Product.id ,Product.name )" label="Attribute"
+                            severity="info" />
                     </div>
                     <div class="ms-1">
                         <p-button (onClick)="navigateToImages(Product.id)" label="Images" severity="info" />

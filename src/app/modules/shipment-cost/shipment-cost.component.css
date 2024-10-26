@@ -1,4 +1,4 @@
-::ng-deep p-table button  {
+::ng-deep p-table .action  {
     padding: 7px !important;
     margin: 10px !important;
     border-radius: 10px !important;

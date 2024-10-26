@@ -1,11 +1,24 @@
 <div class="m-2 header-add">
     <p-button label="Add Brand" class="m-10" (onClick)="navigateToAddBrand()" />
 </div>
-<p-table [value]="brands" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="brands" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)" [tableStyle]="{ 'min-width': '50rem' }"
+    [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
-            <th>Name</th>
-            <th>Name Arabic</th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Name
+                    <p-columnFilter type="text" field="Name" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Name Arabic
+                    <p-columnFilter type="text" field="NameAr" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
             <th>image</th>
             <th></th>
         </tr>
