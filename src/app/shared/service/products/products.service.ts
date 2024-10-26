@@ -8,8 +8,9 @@ export class ProductsService {
 
 	constructor(private httpService: HttpService) { }
 
-	getAllProducts(pageNo: number, pageSize: number) {
-		return this.httpService.get(`Product/GetAll?pageNo=${pageNo}&pageSize=${pageSize}`);
+
+	getAllProductsWithFilters(pageNo: number, pageSize: number,Filters:any) {
+		return this.httpService.post(`Product/GetAllWithFilters?pageNo=${pageNo}&pageSize=${pageSize}`,Filters);
 	}
 
 	getProductByid(id: number) {
