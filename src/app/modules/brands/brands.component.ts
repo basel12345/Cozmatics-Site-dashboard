@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -30,7 +29,6 @@ export class BrandsComponent {
 
 	constructor(
 		private brandsService: BrandsService,
-		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
 	) { 
@@ -60,9 +58,6 @@ export class BrandsComponent {
 			this.brands = res['brands'];
 			this.totalCount = res['totalCount'];
 		});
-	}
-	sanitizationImage(image: string): SafeResourceUrl {
-		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
 
 	deleteBrand(id: number) {

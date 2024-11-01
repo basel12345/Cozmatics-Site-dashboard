@@ -33,9 +33,9 @@
             <td>{{ category.description }}</td>
             <td>{{ category.descriptionAr }}</td>
             <td style="cursor: pointer;" (click)="changePhoto(category.id)">
-                <img *ngIf="category.img" style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(category.img)" alt="">
-                <button class="btn btn-primary" *ngIf="!category.img">Add</button>
+                <img *ngIf="category.imagePath" style="width: 43px; height: 43px;" class="d-block"
+                src="https://api-endpoint.abaqelanayah.com{{category.imagePath}}" [alt]="category.imagePath">
+                <button class="btn btn-primary" *ngIf="!category.imagePath">Add</button>
             </td>
             <td>
                 <p-checkbox [disabled]="true" [(ngModel)]="category.isSelected" [binary]="true" inputId="binary" />

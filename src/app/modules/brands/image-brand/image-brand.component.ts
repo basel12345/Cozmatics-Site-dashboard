@@ -31,12 +31,8 @@ export class ImageBrandComponent {
 
 	ngOnInit(): void {
 		this.brandsService.getBrandByid(this.id).subscribe(res => {
-			if (res.image) this.sanitizationImage(res.image)
+			if (res.imagePath) this.fileName =  "https://api-endpoint.abaqelanayah.com" + res.imagePath;
 		})
-	}
-
-	sanitizationImage(image: string) {
-		this.fileName = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
 
 	handleFileInput(files: any) {

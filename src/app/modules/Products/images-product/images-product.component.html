@@ -11,9 +11,9 @@
     <ng-template pTemplate="body" let-Image>
         <tr>
             <td>
-                <img *ngIf="Image.image" style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(Image.image)" alt="">
-                <span *ngIf="!Image.image">N/A</span>
+                <img *ngIf="Image.imagePath" style="width: 43px; height: 43px;" class="d-block"
+                src="https://api-endpoint.abaqelanayah.com{{Image.imagePath}}" [alt]="Image.imagePath">
+                <span *ngIf="!Image.imagePath">N/A</span>
             </td>
             <td>
                 <div class="buutons">

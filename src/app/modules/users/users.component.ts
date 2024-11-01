@@ -67,10 +67,6 @@ export class UsersComponent {
     });
   }
 
-  sanitizationImage(image: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
-  }
-
   navigateToAddBrand() {
     this.router.navigate(["brand"]);
   }

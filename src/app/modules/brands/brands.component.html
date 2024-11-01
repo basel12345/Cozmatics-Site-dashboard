@@ -28,9 +28,9 @@
             <td>{{ brand.name }}</td>
             <td>{{ brand.nameAr }}</td>
             <td style="cursor: pointer;" (click)="changePhoto(brand.id)">
-                <img *ngIf="brand.image" style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(brand.image)" alt="">
-                <button class="btn btn-primary" *ngIf="!brand.image">Add</button>
+                <img *ngIf="brand.imagePath" style="width: 43px; height: 43px;" class="d-block"
+                src="https://api-endpoint.abaqelanayah.com{{brand.imagePath}}" [alt]="brand.imagePath">
+                <button class="btn btn-primary" *ngIf="!brand.imagePath">Add</button>
             </td>
             <td>
                 <div class="row">

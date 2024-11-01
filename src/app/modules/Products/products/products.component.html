@@ -68,9 +68,9 @@
             <td>{{ Product.name }}</td>
             <td>{{ Product.nameAr }}</td>
             <td>
-                <img *ngIf="Product.coverImg" style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(Product.coverImg)" alt="">
-                <span *ngIf="!Product.coverImg" (click)="changePhoto(Product.id)" style="cursor: pointer;">N/A</span>
+                <img *ngIf="Product.imagePath" style="width: 43px; height: 43px;" class="d-block"
+                src="https://api-endpoint.abaqelanayah.com{{Product.imagePath}}" [alt]="Product.imagePath">
+                <span *ngIf="!Product.imagePath" (click)="changePhoto(Product.id)" style="cursor: pointer;">N/A</span>
             </td>
             <td> {{Product.price}}</td>
             <td> {{Product.qty}}</td>

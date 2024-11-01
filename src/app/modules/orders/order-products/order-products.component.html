@@ -14,7 +14,7 @@
             <td>{{ Product.productName }}</td>
             <td>
                 <img style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(Product.productImage)" alt="">
+                src="https://api-endpoint.abaqelanayah.com{{Product.imagePath}}" [alt]="Product.imagePath">
             </td>
             <td> {{Product.totalPrice}} SAR</td>
             <td> {{Product.productQty}}</td>

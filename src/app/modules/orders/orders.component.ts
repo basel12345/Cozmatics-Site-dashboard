@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -41,8 +40,6 @@ deliveryTypeOptions = [
   Filters: any;
   constructor(
     private ordersService: OrdersService,
-    public sanitizer: DomSanitizer,
-    private toastr: ToastrService,
     private router: Router
   ) { 
     this.matchModeOptions = [
@@ -76,9 +73,6 @@ deliveryTypeOptions = [
         this.totalCount = response.count;
         this.loading = false;
       });
-  }
-  sanitizationImage(image: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
   }
 
   navigateToAddBrand() {

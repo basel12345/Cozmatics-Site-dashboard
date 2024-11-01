@@ -62,9 +62,6 @@ export class ProductsComponent {
 			this.totalCount = res.totalCount
 		});
 	}
-	sanitizationImage(image: string): SafeResourceUrl {
-		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
-	}
 
 	deleteProduct(id: number) {
 		this.productsService.deleteProduct(id).subscribe(res => {

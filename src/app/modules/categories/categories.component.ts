@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CategoriesService } from '../../shared/service/categories/categories.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -30,7 +30,6 @@ export class CategoriesComponent {
 
 	constructor(
 		private categoriesService: CategoriesService,
-		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
 	) { 
@@ -48,10 +47,6 @@ export class CategoriesComponent {
 				value: FilterMatchMode.EQUALS
 			},
 		];
-	}
-
-	sanitizationImage(image: string): SafeResourceUrl {
-		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
 
 	loadOrdersLazy(event: TableLazyLoadEvent) {

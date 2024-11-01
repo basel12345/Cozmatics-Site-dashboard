@@ -13,9 +13,9 @@
         <tr>
             <td>{{ advertisement.discount }}</td>
             <td style="cursor: pointer;" (click)="changePhoto(advertisement.id)">
-                <img *ngIf="advertisement.img" style="width: 43px; height: 43px;" class="d-block"
-                    [src]="sanitizationImage(advertisement.img)" alt="">
-                <button class="btn btn-primary" *ngIf="!advertisement.img">Add</button>
+                <img *ngIf="advertisement.imagePath" style="width: 43px; height: 43px;" class="d-block"
+                src="https://api-endpoint.abaqelanayah.com{{advertisement.imagePath}}" [alt]="advertisement.imagePath">
+                <button class="btn btn-primary" *ngIf="!advertisement.imagePath">Add</button>
             </td>
             <td>
                 <div class="flex">

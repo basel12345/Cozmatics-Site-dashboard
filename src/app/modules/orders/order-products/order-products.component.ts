@@ -24,8 +24,4 @@ export class OrderProductsComponent {
     if(items) this.items = JSON.parse(items);
     this.loadingSerive.hideLoading();
   }
-
-  sanitizationImage(image: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
-  }
 }

@@ -30,12 +30,8 @@ export class ImageCategoryComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.categoriesService.getCategoryByid(this.id).subscribe(res => {
-			if (res.img) this.sanitizationImage(res.img)
+			if (res.imagePath) this.fileName = "https://api-endpoint.abaqelanayah.com" + res.imagePath;
 		})
-	}
-
-	sanitizationImage(image: string) {
-		this.fileName = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
 	}
 
 	handleFileInput(files: any) {

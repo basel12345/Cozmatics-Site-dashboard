@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
 import { ProductsService } from '../../../shared/service/products/products.service';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +18,6 @@ export class ImagesProductComponent implements OnInit {
 	productImgs: any;
 	constructor(
 		private productsService: ProductsService,
-		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router,
 		private route: ActivatedRoute
@@ -39,11 +37,6 @@ export class ImagesProductComponent implements OnInit {
 			
 		})
 	}
-
-	sanitizationImage(image: string): SafeResourceUrl {
-		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
-	}
-
 	deleteImage(id: number) {
 		this.productsService.deleteImageProduct(id).subscribe(res => {
 			this.productImgs = this.productImgs.filter((img: any) => img.id !== id);

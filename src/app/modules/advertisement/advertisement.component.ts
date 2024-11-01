@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -25,7 +24,6 @@ export class AdvertisementsComponent implements OnInit {
 	page: number = 1;
 	constructor(
 		private advertisementsService: AdvertisementsService,
-		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router
 	) { }
@@ -45,13 +43,9 @@ export class AdvertisementsComponent implements OnInit {
 		this.advertisementsService.getAllCount().subscribe(res => {
 			this.totalCount = res;
 			console.log(this.totalCount);
-			
+
 		});
 	}
-	sanitizationImage(image: string): SafeResourceUrl {
-		return this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + image);
-	}
-
 	deleteAdvertisement(id: number) {
 		this.advertisementsService.deleteAdvertisement(id).subscribe(res => {
 			this.toastr.success('Advertisement is Deleted', 'Success');
