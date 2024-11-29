@@ -5,3 +5,7 @@
     border-radius: 18px;
     border: none;
 }
+
+th {
+    min-width: 300px;
+}
