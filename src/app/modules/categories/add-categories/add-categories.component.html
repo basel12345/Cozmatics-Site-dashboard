@@ -31,19 +31,15 @@
             </div>
             <div class="col-md-6 col-12">
                 <label>Parent category</label>
-                <p-dropdown [options]="categories" formControlName="parentId" optionLabel="name" [filter]="true"
+                <p-dropdown [options]="categories" formControlName="parentId" optionLabel="name"  optionValue="id" [filter]="true"
                     filterBy="name" [showClear]="true" placeholder="Parent category">
                     <ng-template pTemplate="selectedItem" let-selectedOption>
                         <div class="flex align-items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'flag flag-' + selectedOption.id" style="width: 18px" />
                             <div>{{ selectedOption.name }}</div>
                         </div>
                     </ng-template>
                     <ng-template let-selectedOption pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'flag flag-' + selectedOption.id" style="width: 18px" />
                             <div>{{ selectedOption.name }}</div>
                         </div>
                     </ng-template>
