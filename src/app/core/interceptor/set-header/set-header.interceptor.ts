@@ -8,11 +8,16 @@ export const setHeaderInterceptor: HttpInterceptorFn = (req, next) => {
   let authReq = req;
   const platformId: object = inject(PLATFORM_ID)
   if (isPlatformBrowser(platformId)) {
-    authReq = req.clone({
-      setHeaders: {
-        "Accept-Language": `en`
-      }
-    });
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      let tokenAuth = JSON.parse(token);
+      authReq = req.clone({
+        setHeaders: {
+          "Accept-Language": `en`,
+          "Authorization": `Bearer ${tokenAuth}`
+        }
+      });
+    }
   }
   return next(authReq);
 };

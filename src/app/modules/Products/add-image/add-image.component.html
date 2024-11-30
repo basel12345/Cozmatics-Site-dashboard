@@ -4,6 +4,7 @@
             <img width="500px" height="500px" [src]="fileName" alt="">
         </div>
         <div class="col-12">
+            <span>(Width must be 180 and length must be 180)</span>
             <div class="form-group pt-2">
                 <label for="file">Choose File</label>
                 <input type="file" id="file" (change)="handleFileInput($event.target)">

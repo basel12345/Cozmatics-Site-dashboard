@@ -67,6 +67,10 @@ export class UsersComponent {
     });
   }
 
+  navigateToUser(id: number){
+    this.router.navigate([`details-users/${id}`]);
+  }
+
   navigateToAddBrand() {
     this.router.navigate(["brand"]);
   }

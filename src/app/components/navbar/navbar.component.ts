@@ -11,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 export class NavbarComponent {
   constructor(private router: Router) {}
   logOut() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['login']);
   }
 }

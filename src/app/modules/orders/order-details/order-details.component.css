@@ -1,0 +1,10 @@
+.status {
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.orders {
+    max-height: 200px;
+    overflow-y: auto;
+}

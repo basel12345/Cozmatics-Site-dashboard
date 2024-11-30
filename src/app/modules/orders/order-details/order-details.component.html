@@ -1,0 +1,78 @@
+<div class="card mt-4 p-3">
+    <div class="row">
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">
+                    Customer Name:
+                </h5>
+                <div class="col-6">{{order?.customerName}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">Phone Number:</h5>
+                <div class="col-6">{{order?.phoneNumber}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">Email:</h5>
+                <div class="col-6" style="font-size: 15px;">{{order?.email}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">
+                    Area:
+                </h5>
+                <div class="col-6">{{order?.customer_Address?.area}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">Area Arabic:</h5>
+                <div class="col-6">{{order?.customer_Address?.areaAr}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">
+                    Street:
+                </h5>
+                <div class="col-6">{{order?.customer_Address?.street}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">
+                    Cost:
+                </h5>
+                <div class="col-6">{{order?.cost}}</div>
+            </div>
+        </div>
+        <div class="col-6 py-2">
+            <div class="row">
+                <h5 class="col-6">Status:</h5>
+                <div class="col-6" style="font-size: 15px;">
+                    <span class="status" style="background-color: green;"
+                        *ngIf="order?.status === 1">Confirmed</span>
+                    <span class="status" style="background-color: #DC2626;"
+                        *ngIf="order?.status === 2">Canceled</span>
+                    <span class="status" style="background-color: green;"
+                        *ngIf="order?.status === 3">Delivered</span>
+                    <span class="status" style="background-color: gray;" *ngIf="order?.status === 4">Closed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <h5 class="col-12">Orders :-</h5>
+        <div class="col-12 orders">
+            <ul>
+                <li *ngFor="let res of order?.items">
+                    {{res.productName}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -88,7 +88,7 @@ export const routes: Routes = [
     },
     {
         path: "Products",
-        loadComponent: () => import("./modules/Products/products/products.component").then(p=> p.ProductsComponent),
+        loadComponent: () => import("./modules/Products/products/products.component").then(p => p.ProductsComponent),
         canActivate: [authGuard],
         data: {
             role: 1
@@ -96,7 +96,15 @@ export const routes: Routes = [
     },
     {
         path: "orders",
-        loadComponent: () => import("./modules/orders/orders.component").then(p=> p.OrdersComponent),
+        loadComponent: () => import("./modules/orders/orders.component").then(p => p.OrdersComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "order-details/:id",
+        loadComponent: () => import("./modules/orders/order-details/order-details.component").then(p => p.OrderDetailsComponent),
         canActivate: [authGuard],
         data: {
             role: 1
@@ -104,7 +112,7 @@ export const routes: Routes = [
     },
     {
         path: "order-products",
-        loadComponent: () => import("./modules/orders/order-products/order-products.component").then(p=> p.OrderProductsComponent),
+        loadComponent: () => import("./modules/orders/order-products/order-products.component").then(p => p.OrderProductsComponent),
         canActivate: [authGuard],
         data: {
             role: 1
@@ -121,6 +129,14 @@ export const routes: Routes = [
     {
         path: "users",
         loadComponent: () => import("./modules/users/users.component").then(c => c.UsersComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
+    },
+    {
+        path: "details-users/:id",
+        loadComponent: () => import("./modules/users/details-users/details-users.component").then(c => c.DetailsUsersComponent),
         canActivate: [authGuard],
         data: {
             role: 1
@@ -184,23 +200,47 @@ export const routes: Routes = [
     },
     {
         path: "AttributeValue/:ProductId/:ProductName",
-        loadComponent: () => import("./modules/attributes-values/attributes-values.component").then(c => c.AttributesValuesComponent)
+        loadComponent: () => import("./modules/attributes-values/attributes-values.component").then(c => c.AttributesValuesComponent),
+        canActivate: [authGuard],
+         data: {
+            role: 1
+        }
+
     },
     {
         path: "AttributeValue/:ProductId/:ProductName/:AttrId",
-        loadComponent: () => import("./modules/attributes-values/add-atrr-value/add-atrr-value.component").then(c => c.AddAtrrValueComponent)
+        loadComponent: () => import("./modules/attributes-values/add-atrr-value/add-atrr-value.component").then(c => c.AddAtrrValueComponent),
+        canActivate: [authGuard],
+         data: {
+            role: 1
+        }
+
     },
     {
         path: "shipment-cost",
-        loadComponent: () => import("./modules/shipment-cost/shipment-cost.component").then(c => c.ShipmentCostComponent)
+        loadComponent: () => import("./modules/shipment-cost/shipment-cost.component").then(c => c.ShipmentCostComponent),
+        canActivate: [authGuard],
+         data: {
+            role: 1
+        }
+
     },
     {
         path: "edit-shipment-cost/:id",
-        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent),
+        canActivate: [authGuard],
+         data: {
+            role: 1
+        }
+
     },
     {
         path: "add-shipment-cost",
-        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent)
+        loadComponent: () => import("./modules/shipment-cost/add-shipment-cost/add-shipment-cost.component").then(c => c.AddShipmentCostComponent),
+        canActivate: [authGuard],
+        data: {
+            role: 1
+        }
     },
     {
         path: "**",

@@ -21,6 +21,6 @@ export class AppComponent implements DoCheck {
   ){}
 
   ngDoCheck(): void {
-    this.token = localStorage.getItem("token")
+    this.token = sessionStorage.getItem("token")
   }
 }

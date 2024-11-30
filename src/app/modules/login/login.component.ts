@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
 		this.submitted = true;
 		if (this.loginForm.valid) {
 			this.service.login(this.loginForm.getRawValue()).subscribe((res: any) => {
-				localStorage.setItem('user', JSON.stringify(res));
-				localStorage.setItem('token', JSON.stringify(res.token));
+				sessionStorage.setItem('user', JSON.stringify(res));
+				sessionStorage.setItem('token', JSON.stringify(res.token));
 				this.router.navigate(['home']);
 			}, err => {
 				this.toastr.error('Please verify your email and password', 'Error');

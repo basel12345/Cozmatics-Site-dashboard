@@ -20,7 +20,7 @@ export class OrderProductsComponent {
     public ordersService: OrdersService,
     private loadingSerive: LoadingService
 	) { 
-    const items = localStorage.getItem("items")
+    const items = sessionStorage.getItem("items")
     if(items) this.items = JSON.parse(items);
     this.loadingSerive.hideLoading();
   }

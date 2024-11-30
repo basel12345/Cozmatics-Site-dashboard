@@ -1,23 +1,19 @@
-<p-table 
-    [value]="orders" 
-    [lazy]="true" 
-    (onLazyLoad)="loadOrdersLazy($event)"
-    [tableStyle]="{ 'min-width': '50rem' }"
+<p-table [value]="orders" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)" [tableStyle]="{ 'min-width': '50rem' }"
     [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
             <th>Customer Name</th>
             <th>Phone Number</th>
-            <th>City</th>
+            <!-- <th>City</th>
             <th>City Arabic</th>
             <th>Area</th>
-            <th>Area Arabic</th>
-            <th>Street</th>
+            <th>Area Arabic</th> -->
+            <!-- <th>Street</th> -->
             <th>Delivery Type</th>
             <th>Status</th>
             <th>Total Price</th>
             <th></th>
-        </tr>        
+        </tr>
         <tr>
             <th>
                 <p-columnFilter type="text" field="customerName" [matchModeOptions]="matchModeOptions"></p-columnFilter>
@@ -25,22 +21,23 @@
             <th>
                 <p-columnFilter type="text" field="phoneNumber" [matchModeOptions]="matchModeOptions"></p-columnFilter>
             </th>
-            <th>
-                <!-- <p-columnFilter type="text" field="city" [matchModeOptions]="matchModeOptions"></p-columnFilter> -->
+            <!-- <th>
+                <p-columnFilter type="text" field="city" [matchModeOptions]="matchModeOptions"></p-columnFilter>
             </th>
             <th>
-                <!-- <p-columnFilter type="text" field="cityAr" [matchModeOptions]="matchModeOptions"></p-columnFilter> -->
+                <p-columnFilter type="text" field="cityAr" [matchModeOptions]="matchModeOptions"></p-columnFilter>
             </th>
             <th>
                 <p-columnFilter type="text" field="area" [matchModeOptions]="matchModeOptions"></p-columnFilter>
             </th>
             <th>
                 <p-columnFilter type="text" field="areaAr" [matchModeOptions]="matchModeOptions"></p-columnFilter>
-            </th>
+            </th> -->
             <th>
                 <p-columnFilter field="deliveryType" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown [ngModel]="value" [options]="deliveryTypeOptions" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                        <p-dropdown [ngModel]="value" [options]="deliveryTypeOptions" (onChange)="filter($event.value)"
+                            placeholder="Any" [showClear]="true">
                             <ng-template let-option pTemplate="item">
                                 <span>{{option.label}}</span>
                             </ng-template>
@@ -51,7 +48,8 @@
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown [ngModel]="value" [options]="statusOptions" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                        <p-dropdown [ngModel]="value" [options]="statusOptions" (onChange)="filter($event.value)"
+                            placeholder="Any" [showClear]="true">
                             <ng-template let-option pTemplate="item">
                                 <span>{{option.label}}</span>
                             </ng-template>
@@ -60,7 +58,8 @@
                 </p-columnFilter>
             </th>
             <th>
-                <p-columnFilter type="numeric" field="TotalPrice" matchMode="equals" [showMenu]="false"></p-columnFilter>
+                <p-columnFilter type="numeric" field="TotalPrice" matchMode="equals"
+                    [showMenu]="false"></p-columnFilter>
             </th>
             <th></th>
         </tr>
@@ -69,25 +68,33 @@
         <tr>
             <td>{{ order.customerName }}</td>
             <td>{{ order.phoneNumber }}</td>
-            <td>{{ order.customer_Address?.city }}</td>
+            <!-- <td>{{ order.customer_Address?.city }}</td>
             <td>{{ order.customer_Address?.cityAr }}</td>
             <td>{{ order.customer_Address?.area }}</td>
-            <td>{{ order.customer_Address?.areaAr }}</td>
+            <td>{{ order.customer_Address?.areaAr }}</td> -->
             <td>{{ order.deliveryType === 0 ? "Home" : "Shop" }}</td>
             <td>
                 <span class="status" style="background-color: #0284C7;" *ngIf="order.status === 0">Open</span>
-                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: green;" *ngIf="order.status === 1">Confirmed</button>
-                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: #DC2626;" *ngIf="order.status === 2">Canceled</button>
-                <button (click)="changeStatus(4, order.id)" class="status" style="background-color: green;" *ngIf="order.status === 3">Delivered</button>
+                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: green;"
+                    *ngIf="order.status === 1">Confirmed</button>
+                <button (click)="changeStatus(3, order.id)" class="status" style="background-color: #DC2626;"
+                    *ngIf="order.status === 2">Canceled</button>
+                <button (click)="changeStatus(4, order.id)" class="status" style="background-color: green;"
+                    *ngIf="order.status === 3">Delivered</button>
                 <span class="status" style="background-color: gray;" *ngIf="order.status === 4">Closed</span>
             </td>
             <td>{{ order.totalPrice }} SAR</td>
             <td>
-                <div class="col-md-6 col-12">
-                    <p-button (onClick)="navigateToProduct(order.items)"  label="Products" severity="info" />
+                <div class="row">
+                    <div class="col">
+                        <p-button (onClick)="navigateToProduct(order.items)" label="Products" severity="info" />
+                    </div>
+                    <div class="col">
+                        <p-button (onClick)="navigateToOrder(order.id)" icon="pi pi-eye" severity="info" />
+                    </div>
                 </div>
             </td>
-           
+
         </tr>
     </ng-template>
 </p-table>

@@ -10,6 +10,7 @@ import { BrandsService } from '../../shared/service/brands/brands.service';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { OrdersService } from '../../shared/service/orders/orders.service';
 import { FilterMatchMode, SelectItem } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders',
@@ -31,31 +32,31 @@ export class OrdersComponent {
     { label: 'Canceled', value: 2 },
     { label: 'Delivered', value: 3 },
     { label: 'Closed', value: 4 }
-];
+  ];
 
-deliveryTypeOptions = [
+  deliveryTypeOptions = [
     { label: 'Home', value: 0 },
     { label: 'Shop', value: 1 }
-];
+  ];
   Filters: any;
   constructor(
     private ordersService: OrdersService,
     private router: Router
-  ) { 
+  ) {
     this.matchModeOptions = [
-      { 
-          label: 'Starts With', 
-          value: FilterMatchMode.STARTS_WITH 
+      {
+        label: 'Starts With',
+        value: FilterMatchMode.STARTS_WITH
       },
-      { 
-          label: 'Contains', 
-          value: FilterMatchMode.CONTAINS 
+      {
+        label: 'Contains',
+        value: FilterMatchMode.CONTAINS
       },
-      {     
-          label: 'Equals', 
-          value: FilterMatchMode.EQUALS
+      {
+        label: 'Equals',
+        value: FilterMatchMode.EQUALS
       },
-];
+    ];
   }
 
 
@@ -63,11 +64,11 @@ deliveryTypeOptions = [
     this.getAllordersWithFilters(event.filters);
   }
 
-  getAllordersWithFilters(filters:any) {
+  getAllordersWithFilters(filters: any) {
     this.Filters = filters;
     this.loading = true;
     this.ordersService
-      .getAllOrdersWithFilters(filters,this.page, 10)
+      .getAllOrdersWithFilters(filters, this.page, 10)
       .subscribe((response: any) => {
         this.orders = response.orders;
         this.totalCount = response.count;
@@ -86,14 +87,26 @@ deliveryTypeOptions = [
   }
 
   navigateToProduct(items: any) {
-    localStorage.setItem("items", JSON.stringify(items));
+    sessionStorage.setItem("items", JSON.stringify(items));
     this.ordersService.items = items;
     this.router.navigate(['order-products']);
   }
 
+  navigateToOrder(id: number) {
+    this.router.navigate([`order-details/${id}`]);
+  }
+
   changeStatus(status: number, id: number) {
-    this.ordersService.changeStatus(status, id).subscribe(res => {
-      this.getAllordersWithFilters(this.Filters);
+    Swal.fire({
+      title: `Are you sure to change the status to ${id === 3 ? 'confirmed' : 'closed'} ?`,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ordersService.changeStatus(status, id).subscribe(res => {
+          this.getAllordersWithFilters(this.Filters);
+        })
+      }
     })
   }
 }

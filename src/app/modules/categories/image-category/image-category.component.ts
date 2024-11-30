@@ -15,6 +15,9 @@ export class ImageCategoryComponent implements OnInit {
 	fileName: string | null | ArrayBuffer | SafeResourceUrl = 'assets/placeholder.jpg';
 	id!: number;
 	fileToUpload: any;
+	imageWidth!: number;
+	imageHeight!: number;
+	defaultImage: string | ArrayBuffer | SafeResourceUrl | null = 'assets/placeholder.jpg';
 
 	constructor(
 		private categoriesService: CategoriesService,
@@ -30,7 +33,9 @@ export class ImageCategoryComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.categoriesService.getCategoryByid(this.id).subscribe(res => {
-			if (res.imagePath) this.fileName = "https://api-endpoint.abaqelanayah.com" + res.imagePath;
+			if (res.imagePath) { }
+			this.defaultImage = "https://api-endpoint.abaqelanayah.com" + res.imagePath;
+			this.fileName = this.defaultImage;
 		})
 	}
 
@@ -40,15 +45,27 @@ export class ImageCategoryComponent implements OnInit {
 		reader.readAsDataURL(files.files[0]);
 		reader.onload = (_event) => {
 			this.fileName = reader.result;
+			const img = new Image();
+			img.onload = () => {
+				this.imageWidth = img.width;
+				this.imageHeight = img.height;
+				if (this.imageHeight !== 100 || this.imageWidth !== 100) {
+					this.fileToUpload = null;
+					this.fileName = this.defaultImage;
+					this.toastr.error("Width must be 100 and length must be 100")
+				}
+			};
+			img.src = _event.target?.result as string;
 		}
 	}
 	uploadFileToActivity() {
-		const formData = new FormData()
-		formData.append("file", this.fileToUpload)
-
-		this.categoriesService.uploadFile(this.id, formData).subscribe(res => {
-			this.toastr.success('Image is Uploaded', 'Success');
-			this.router.navigate(['categories']);
-		});
+		if (this.fileToUpload) {
+			const formData = new FormData()
+			formData.append("file", this.fileToUpload)
+			this.categoriesService.uploadFile(this.id, formData).subscribe(res => {
+				this.toastr.success('Image is Uploaded', 'Success');
+				this.router.navigate(['categories']);
+			});
+		}
 	}
 }
