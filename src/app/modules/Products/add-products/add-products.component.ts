@@ -69,7 +69,8 @@ export class AddProductsComponent {
 			price: [null, [Validators.required, Validators.min(1)]],
 			qty: [null, [Validators.required, Validators.min(1)]],
 			discountPercentage: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-			tag: [null]
+			tag: [null],
+			vat: [0]
 		})
 	}
 
@@ -84,7 +85,7 @@ export class AddProductsComponent {
 	SaveData() {
 		const brandId = this.productForm.get("brandId")?.getRawValue();
 		if (brandId) this.productForm.get("parentId")?.patchValue(+brandId);
-
+		this.productForm.get("vat")?.patchValue(this.productForm.get("vat")?.getRawValue() ? 1 : 0);
 		const tag = this.productForm.get("tag")?.getRawValue();
 		if (tag) this.productForm.get("tag")?.patchValue(+tag);
 		if (this.productForm.invalid) {

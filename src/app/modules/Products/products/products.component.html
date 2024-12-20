@@ -61,6 +61,11 @@
                     <p-columnFilter type="numeric" field="DiscountPercentage" [showMenu]="false"></p-columnFilter>
                 </div>
             </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    VAT
+                </div>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-Product>
@@ -78,6 +83,9 @@
             <td> {{Product.brandName}}</td>
             <td> {{Product.rateValue}}</td>
             <td> {{Product.discountPercentage}}</td>
+            <td>
+                {{Product['vat'] === 1 ? true : false}}
+            </td>
             <td>
                 <div class="buutons">
                     <div class="ms-1">

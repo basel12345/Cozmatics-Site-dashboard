@@ -24,8 +24,6 @@ export class DetailsUsersComponent implements OnInit {
         this.address = res;
       })
       this.userService.getUserById(res['id']).subscribe(res => {
-        console.log(res);
-        
         this.user = res;
       })
     })

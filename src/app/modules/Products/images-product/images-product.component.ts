@@ -32,9 +32,7 @@ export class ImagesProductComponent implements OnInit {
 
 	getProductDetails(id: number) {
 		this.productsService.getProductDetails(id).subscribe(res => {
-			this.productImgs = res['productImgs'];
-			console.log(this.productImgs);
-			
+			this.productImgs = res['productImgs'];			
 		})
 	}
 	deleteImage(id: number) {
