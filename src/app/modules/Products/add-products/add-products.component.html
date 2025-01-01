@@ -2,6 +2,13 @@
     <div class="card p-5 mt-5 mb-2">
         <div class="row">
             <div class="col-md-6 col-12">
+                <label>Bar Code</label>
+                <input type="text" formControlName="barcode" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('barcode')?.errors?.['required']">
+                    Bar Code is required
+                </span>
+            </div>
+            <div class="col-md-6 col-12">
                 <label>Name</label>
                 <input type="text" formControlName="name" class="form-control">
                 <span class="text-danger" *ngIf="submitted && productForm.get('name')?.errors?.['required']">

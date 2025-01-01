@@ -48,11 +48,6 @@ export class AddImageComponent {
 			img.onload = () => {
 				this.imageWidth = img.width;
 				this.imageHeight = img.height;
-				if (this.imageHeight !== 1000 || this.imageWidth !== 1000) {
-					this.fileToUpload = null;
-					this.fileName = 'assets/placeholder.jpg'
-					this.toastr.error("Width must be 1000 and length must be 1000")
-				}
 			};
 			img.src = _event.target?.result as string;
 		}

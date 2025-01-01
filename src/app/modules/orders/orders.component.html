@@ -2,6 +2,7 @@
     [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
+            <th></th>
             <th>Customer Name</th>
             <th>Phone Number</th>
             <!-- <th>City</th>
@@ -64,8 +65,9 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-order>
+    <ng-template pTemplate="body" let-order let-i="rowIndex">
         <tr>
+            <td>#{{i+first}}</td>
             <td>{{ order.customerName }}</td>
             <td>{{ order.phoneNumber }}</td>
             <!-- <td>{{ order.customer_Address?.city }}</td>

@@ -4,24 +4,26 @@
 <p-table [value]="advertisements" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
+            <th></th>
             <th>discount</th>
             <th>image</th>
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-advertisement>
+    <ng-template pTemplate="body" let-advertisement let-i="rowIndex">
         <tr>
+            <td>#{{i + first}}</td>
             <td>{{ advertisement.discount }}</td>
             <td style="cursor: pointer;" (click)="changePhoto(advertisement.id)">
                 <img *ngIf="advertisement.imagePath" style="width: 43px; height: 43px;" class="d-block"
-                src="https://api-endpoint.abaqelanayah.com{{advertisement.imagePath}}" [alt]="advertisement.imagePath">
+                    src="https://api-endpoint.abaqelanayah.com{{advertisement.imagePath}}"
+                    [alt]="advertisement.imagePath">
                 <button class="btn btn-primary" *ngIf="!advertisement.imagePath">Add</button>
             </td>
             <td>
                 <div class="flex">
-                        <p-button (onClick)="deleteAdvertisement(advertisement.id)" label="Delete" severity="danger" />
-                        <p-button (onClick)="navigateToEditAdvertisement(advertisement.id)" label="Edit"
-                            severity="info" />
+                    <p-button (onClick)="deleteAdvertisement(advertisement.id)" label="Delete" severity="danger" />
+                    <p-button (onClick)="navigateToEditAdvertisement(advertisement.id)" label="Edit" severity="info" />
                 </div>
             </td>
         </tr>

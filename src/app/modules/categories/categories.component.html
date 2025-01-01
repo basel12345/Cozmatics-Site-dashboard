@@ -5,6 +5,7 @@
     [tableStyle]="{ 'min-width': '50rem' }" [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
+            <th></th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Name
@@ -26,15 +27,16 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-category>
+    <ng-template pTemplate="body" let-category let-i="rowIndex">
         <tr>
+            <td>#{{i + first}}</td>
             <td>{{ category.name }}</td>
             <td>{{ category.nameAr }}</td>
             <td>{{ category.description }}</td>
             <td>{{ category.descriptionAr }}</td>
             <td style="cursor: pointer;" (click)="changePhoto(category.id)">
                 <img *ngIf="category.imagePath" style="width: 43px; height: 43px;" class="d-block"
-                src="https://api-endpoint.abaqelanayah.com{{category.imagePath}}" [alt]="category.imagePath">
+                    src="https://api-endpoint.abaqelanayah.com{{category.imagePath}}" [alt]="category.imagePath">
                 <button class="btn btn-primary" *ngIf="!category.imagePath">Add</button>
             </td>
             <td>

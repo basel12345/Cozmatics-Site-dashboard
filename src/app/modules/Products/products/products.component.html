@@ -5,6 +5,15 @@
     [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
+            <th>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Bar Code
+                    <p-columnFilter type="text" field="barcode" [showAddButton]="false" [showOperator]="false"
+                        [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div>
+            </th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     Name
@@ -68,13 +77,15 @@
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-Product>
+    <ng-template pTemplate="body" let-Product let-i="rowIndex">
         <tr>
+            <td>#{{i + first}}</td>
+            <td>{{ Product.barcode }}</td>
             <td>{{ Product.name }}</td>
             <td>{{ Product.nameAr }}</td>
             <td>
                 <img *ngIf="Product.imagePath" style="width: 43px; height: 43px;" class="d-block"
-                src="https://api-endpoint.abaqelanayah.com{{Product.imagePath}}" [alt]="Product.imagePath">
+                    src="https://api-endpoint.abaqelanayah.com{{Product.imagePath}}" [alt]="Product.imagePath">
                 <span *ngIf="!Product.imagePath" (click)="changePhoto(Product.id)" style="cursor: pointer;">N/A</span>
             </td>
             <td> {{Product.price}}</td>

@@ -5,6 +5,7 @@
     [tableStyle]="{ 'min-width': '50rem' }" [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
+            <th></th>
             <th style="min-width:15rem">
                 <div class="flex justify-content-center align-items-center">
                     City Name
@@ -42,8 +43,9 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-shipment>
+    <ng-template pTemplate="body" let-shipment let-i="rowIndex">
         <tr>
+            <td>#{{i + first}}</td>
             <td>{{ shipment.city }}</td>
             <td>{{ shipment.cityAr }}</td>
             <td>{{ shipment.area }}</td>

@@ -30,7 +30,7 @@ export class AddProductsComponent {
 		private router: Router
 	) { }
 	id!: number;
-	tags:any
+	tags: any
 	ngOnInit(): void {
 		this.initForm();
 		this.getAllCategories();
@@ -40,11 +40,11 @@ export class AddProductsComponent {
 			if (this.id)
 				this.getProductByid(this.id);
 		});
-     this.tags =[
-		{id:0,name:'Most Popular'},
-		{id:1,name:'Recent'},
-		{id:2,name:'Best'}
-	 ]		
+		this.tags = [
+			{ id: 0, name: 'Most Popular' },
+			{ id: 1, name: 'Recent' },
+			{ id: 2, name: 'Best' }
+		]
 	}
 
 	getAllCategories() {
@@ -70,7 +70,8 @@ export class AddProductsComponent {
 			qty: [null, [Validators.required, Validators.min(1)]],
 			discountPercentage: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
 			tag: [null],
-			vat: [0]
+			vat: [0],
+			barcode: ['', Validators.required]
 		})
 	}
 

@@ -52,11 +52,6 @@ export class ImageBrandComponent {
 			img.onload = () => {
 				this.imageWidth = img.width;
 				this.imageHeight = img.height;
-				if (this.imageHeight !== 80 || this.imageWidth !== 120) {
-					this.fileToUpload = null;
-					this.fileName = this.defaultImage;
-					this.toastr.error("Width must be 120 and length must be 80")
-				}
 			};
 			img.src = _event.target?.result as string;
 		}
