@@ -59,7 +59,7 @@ export class AddImageComponent {
 			const isCover = this.isCover === true ? 1 : 0
 			this.productsService.uploadFile(this.id, isCover, formData).subscribe(res => {
 				this.toastr.success('Image is Uploaded', 'Success');
-				this.router.navigate(['Products']);
+				this.router.navigate([`images-product/${this.id}`]);
 			});
 		}
 	}
