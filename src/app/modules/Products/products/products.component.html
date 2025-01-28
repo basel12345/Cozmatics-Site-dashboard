@@ -1,5 +1,11 @@
-<div class="m-2 header-add">
-    <p-button label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
+<div class="d-flex">
+    <div class="m-2 header-add">
+        <p-button pRipple label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
+    </div>
+    <div class="m-2 excel-update">
+        <p-button label="Excel Update" severity="info" (onClick)="clickInputFile()"/>
+        <input id="fileInput" type="file"  (change)="uploadUpdateFile($event)">
+    </div>
 </div>
 <p-table [value]="products" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)" [tableStyle]="{ 'min-width': '50rem' }"
     [loading]="loading">

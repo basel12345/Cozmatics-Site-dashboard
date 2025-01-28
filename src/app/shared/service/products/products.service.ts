@@ -21,6 +21,10 @@ export class ProductsService {
 		return this.httpService.get(`Product/GetProductDetails?id=${id}`)
 	}
 
+	uploadExcel(data: any) {
+		return this.httpService.post("Product/UploadExcel", data);
+	}
+
 	deleteProduct(id: number) {
 		return this.httpService.delete("Product/Delete", id);
 	}

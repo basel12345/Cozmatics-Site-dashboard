@@ -4,3 +4,11 @@
 ::ng-deep.header-add button {
     border-radius: 26px !important;
 }
+
+::ng-deep.excel-update button {
+    border-radius: 26px !important;
+}
+
+#fileInput{ 
+    display: none;
+}

@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { AddProductsComponent } from '../add-products/add-products.component';
 import { ProductsService } from '../../../shared/service/products/products.service';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterMatchMode, FilterMetadata, SelectItem } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-products',
@@ -28,11 +29,13 @@ export class ProductsComponent {
 	loading: boolean = false;
 	matchModeOptions: SelectItem[];
 	Filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined; } | undefined;
+	selectedFile: File | null = null;
+
 	constructor(
 		private productsService: ProductsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
-		private router: Router
+		private router: Router,
 	) {
 		this.matchModeOptions = [
 			{
@@ -95,5 +98,36 @@ export class ProductsComponent {
 		if (event.page || event.page === 0) this.page = event.page + 1;
 		if (event.first || event.first === 0) this.first = event.first + 1;
 		this.getAllProductsWithFilters()
+	}
+
+	clickInputFile() {
+		const fileInput = document.getElementById('fileInput') as HTMLElement;
+		if (fileInput) {
+			fileInput.click();
+		}
+	}
+
+	uploadUpdateFile(event: Event) {
+		const input = event.target as HTMLInputElement;
+		if (input.files && input.files.length > 0) {
+			this.selectedFile = input.files[0];
+			const formData = new FormData();
+			formData.append('file', this.selectedFile, this.selectedFile.name);
+			this.productsService.uploadExcel(formData).subscribe((res: any) => {
+				if (res?.successfullBarcodes.length) {
+					this.toastr.success('Uploaded file', 'Success');
+				}
+				if (res?.failedBarcodes.length) {
+					Swal.fire({
+						icon: "error",
+						title: `These are invalid barcodes (${res.failedBarcodes.join(' - ')})`,
+						confirmButtonText: "Ok",
+					})
+				}
+				input.value = '';
+				this.selectedFile = null;
+				this.getAllProductsWithFilters()
+			})
+		}
 	}
 }
