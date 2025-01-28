@@ -108,9 +108,15 @@ export class ProductsComponent {
 	}
 
 	uploadUpdateFile(event: Event) {
+		const allowedExtensions = ['.xlsx', '.xls'];
 		const input = event.target as HTMLInputElement;
 		if (input.files && input.files.length > 0) {
 			this.selectedFile = input.files[0];
+			const fileExtension = this.selectedFile.name.substring(this.selectedFile.name.lastIndexOf('.')).toLowerCase();
+			if (!allowedExtensions.includes(fileExtension)) {
+				this.toastr.error('Only Excel files (.xlsx, .xls) are allowed.', 'Error');
+				return;
+			}
 			const formData = new FormData();
 			formData.append('file', this.selectedFile, this.selectedFile.name);
 			this.productsService.uploadExcel(formData).subscribe((res: any) => {
