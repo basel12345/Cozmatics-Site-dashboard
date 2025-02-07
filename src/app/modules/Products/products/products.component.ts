@@ -18,7 +18,7 @@ import { ConvertToStringPipe } from '../../../shared/pipe/convert-to-string.pipe
 @Component({
 	selector: 'app-products',
 	standalone: true,
-	imports: [ConvertToStringPipe, TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent, PaginatorModule],
+	imports: [ConvertToStringPipe, TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, PaginatorModule],
 	templateUrl: './products.component.html',
 	styleUrl: './products.component.css'
 })

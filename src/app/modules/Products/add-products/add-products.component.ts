@@ -149,12 +149,16 @@ export class AddProductsComponent {
 				this.toastr.success('Product Updated', 'Success');
 				this.router.navigate(['Products']);
 				this.submitted = false;
+			}, err => {
+				this.toastr.error(err.error.exception, 'Error');
 			})
 		} else {
 			this.productService.addProduct(this.productForm.getRawValue()).subscribe(res => {
 				this.toastr.success('Product Saved', 'Success');
 				this.router.navigate(['Products']);
 				this.submitted = false;
+			}, err => {
+				this.toastr.error(err.error.exception, 'Error');
 			})
 		}
 	}
