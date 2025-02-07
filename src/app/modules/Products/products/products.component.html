@@ -3,8 +3,8 @@
         <p-button pRipple label="Add Product" class="m-10" (onClick)="navigateToAddProduct()" />
     </div>
     <div class="m-2 excel-update">
-        <p-button label="Excel Update" severity="info" (onClick)="clickInputFile()"/>
-        <input id="fileInput" type="file"  (change)="uploadUpdateFile($event)">
+        <p-button label="Excel Update" severity="info" (onClick)="clickInputFile()" />
+        <input id="fileInput" type="file" (change)="uploadUpdateFile($event)">
     </div>
 </div>
 <p-table [value]="products" [lazy]="true" (onLazyLoad)="loadOrdersLazy($event)" [tableStyle]="{ 'min-width': '50rem' }"
@@ -14,10 +14,17 @@
             <th>
             </th>
             <th style="min-width:15rem">
-                <div class="flex justify-content-center align-items-center">
+                <!-- <div class="flex justify-content-center align-items-center">
                     Bar Code
                     <p-columnFilter type="text" field="barcode" [showAddButton]="false" [showOperator]="false"
                         [matchModeOptions]="matchModeOptions"></p-columnFilter>
+                </div> -->
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex justify-content-center align-items-center">
+                    Item No
+                    <p-columnFilter type="numeric" field="itemNo" [showMenu]="false"></p-columnFilter>
+
                 </div>
             </th>
             <th style="min-width:15rem">
@@ -85,8 +92,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-Product let-i="rowIndex">
         <tr>
-            <td>#{{i + first}}</td>
-            <td>{{ Product.barcode }}</td>
+            <td>#{{i + productsService.first}}</td>
+            <td>{{ Product.barcodes | convertToString:'barcode' }}</td>
+            <td>{{ Product.itemNo }}</td>
             <td>{{ Product.name }}</td>
             <td>{{ Product.nameAr }}</td>
             <td>
@@ -127,6 +135,6 @@
     </ng-template>
 </p-table>
 <div class="flex-auto mt-4">
-    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="10"
+    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="productsService.first" [rows]="10"
         [totalRecords]="totalCount"></p-paginator>
 </div>

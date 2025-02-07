@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { CategoriesService } from './../../../shared/service/categories/categories.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ export class AddProductsComponent {
 	productForm!: FormGroup;
 	product: any;
 	submitted: boolean = false;
+	barcodesInvalid!: boolean;
 	constructor(
 		private route: ActivatedRoute,
 		private productService: ProductsService,
@@ -37,6 +38,7 @@ export class AddProductsComponent {
 		this.getAllBrands();
 		this.route.params.subscribe(res => {
 			this.id = res["id"];
+			if (!this.id) this.addItem();
 			if (this.id)
 				this.getProductByid(this.id);
 		});
@@ -58,27 +60,76 @@ export class AddProductsComponent {
 		})
 	}
 
+	saveBarcode(index: number) {
+		this.barcodesInvalid = true;
+		if (this.barcodes.at(index).valid) {
+			this.productService.addBarCode({ ...this.barcodes.at(index).getRawValue(), ProductId: this.id }).subscribe((res: any) => {
+				this.toastr.success('Barcode Saved', 'Success');
+				this.barcodesInvalid = false;
+				this.barcodes.at(index).markAsPristine();
+				this.barcodes.at(index).disable();
+				this.barcodes.at(index).get('id')?.patchValue(res.id)
+			})
+		}
+
+	}
+
 	initForm() {
 		this.productForm = this.fb.group({
 			name: ["", Validators.required],
+			itemNo: [null, Validators.required],
 			nameAr: ["", Validators.required],
 			description: ["", Validators.required],
 			descriptionAr: ["", Validators.required],
 			categoryId: [null, Validators.required],
 			brandId: [null, Validators.required],
 			price: [null, [Validators.required, Validators.min(1)]],
-			qty: [null, [Validators.required, Validators.min(1)]],
+			qty: [0, [Validators.required]],
 			discountPercentage: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
 			tag: [null],
 			vat: [0],
-			barcode: ['', Validators.required]
+			barcodes: this.fb.array([])
 		})
+	}
+
+	get barcodes(): FormArray {
+		return this.productForm.get('barcodes') as FormArray;
+	}
+
+	addItem() {
+		if (!this.barcodes.invalid)
+			this.barcodes?.push(this.fb.group({
+				barcode: ['', Validators.required],
+				id: null,
+			}));
+	}
+
+	addbarcodesById(data: any) {
+		data.barcodes.forEach((res: any) => {
+			this.barcodes?.push(this.fb.group({
+				barcode: res.barcode,
+				id: res.id,
+			}));
+		})
+		this.barcodes.disable();
+	}
+
+	removeItem(index: number, id: number) {
+		if (id) {
+			this.productService.deleteBarCode(id).subscribe(res => {
+				this.toastr.success('Barcode Removed', 'Success');
+				this.barcodes.removeAt(index);
+			})
+		} else {
+			this.barcodes.removeAt(index);
+		}
 	}
 
 	getProductByid(id: number) {
 		this.productService.getProductByid(id).subscribe(res => {
 			this.product = res;
 			this.productForm.patchValue(this.product);
+			this.addbarcodesById(this.product);
 		})
 	}
 

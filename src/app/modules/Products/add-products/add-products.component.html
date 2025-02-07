@@ -2,10 +2,10 @@
     <div class="card p-5 mt-5 mb-2">
         <div class="row">
             <div class="col-md-6 col-12">
-                <label>Bar Code</label>
-                <input type="text" formControlName="barcode" class="form-control">
-                <span class="text-danger" *ngIf="submitted && productForm.get('barcode')?.errors?.['required']">
-                    Bar Code is required
+                <label>itemNo</label>
+                <input type="number" formControlName="itemNo" class="form-control">
+                <span class="text-danger" *ngIf="submitted && productForm.get('itemNo')?.errors?.['required']">
+                    itemNo is required
                 </span>
             </div>
             <div class="col-md-6 col-12">
@@ -85,7 +85,8 @@
             <div class="col-md-6 col-12 mt-3">
                 <label>Discount</label>
                 <input type="number" formControlName="discountPercentage" class="form-control">
-                <span class="text-danger" *ngIf="submitted &&(productForm.get('discountPercentage')?.errors?.['min'] ||  productForm.get('discountPercentage')?.errors?.['max'])">
+                <span class="text-danger"
+                    *ngIf="submitted &&(productForm.get('discountPercentage')?.errors?.['min'] ||  productForm.get('discountPercentage')?.errors?.['max'])">
                     Enter valid Discount
                 </span>
             </div>
@@ -95,6 +96,40 @@
                 <label class="ps-2">Vat</label>
             </div>
 
+
+
+            <div class="col-12">
+                <div class="row my-1">
+                    <div class="col">
+                        <label>Bar Code</label>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary me-1 text-right" (click)="addItem()">+</button>
+                    </div>
+                </div>
+                <ng-container formArrayName="barcodes">
+                        <div class="row mt-1" *ngFor="let item of barcodes.controls; let i = index" [formGroupName]="i">
+                        <div class="col-md-6 col-12">
+                            <input type="text" formControlName="barcode" class="form-control">
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <button *ngIf="id && !barcodes.controls.at(i)?.get('barcode')?.pristine" type="button"
+                                class="btn btn-primary me-1" (click)="saveBarcode(i)">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                (click)="removeItem(i, barcodes.controls.at(i)?.get('id')?.getRawValue())">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="(submitted || barcodesInvalid) && barcodes.controls.at(i)?.get('barcode')?.errors?.['required']">
+                            Bar Code is required
+                        </span>
+
+                    </div>
+                </ng-container>
+            </div>
             <div class="col-12 text-end m-2">
                 <button class="btn btn-primary" type="submit">Save</button>
             </div>

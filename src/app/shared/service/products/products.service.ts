@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpService } from '../http/http.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProductsService {
+	page: number = 1;
+	first: number = 1;
 
 	constructor(private httpService: HttpService) { }
 
@@ -47,5 +49,13 @@ export class ProductsService {
 
 	uploadFile(id: number, isCover: number, data: any) {
 		return this.httpService.post(`gallery/uploadProductImg/${id}/${isCover }`, data);
+	}
+
+	deleteBarCode(id: number) {
+		return this.httpService.delete(`barcodes/Delete/`, id);
+	}
+
+	addBarCode(data: any) {
+		return this.httpService.post(`barcodes/Add`, data);
 	}
 }

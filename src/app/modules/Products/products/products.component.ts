@@ -13,26 +13,25 @@ import { ProductsService } from '../../../shared/service/products/products.servi
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterMatchMode, FilterMetadata, SelectItem } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { ConvertToStringPipe } from '../../../shared/pipe/convert-to-string.pipe';
 
 @Component({
 	selector: 'app-products',
 	standalone: true,
-	imports: [TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent, PaginatorModule],
+	imports: [ConvertToStringPipe, TableModule, CommonModule, ButtonModule, CheckboxModule, FormsModule, AddProductsComponent, PaginatorModule],
 	templateUrl: './products.component.html',
 	styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 	products: any;
-	first: number = 1;
 	totalCount!: number;
-	page: number = 1;
 	loading: boolean = false;
 	matchModeOptions: SelectItem[];
 	Filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined; } | undefined;
 	selectedFile: File | null = null;
 
 	constructor(
-		private productsService: ProductsService,
+		public productsService: ProductsService,
 		public sanitizer: DomSanitizer,
 		private toastr: ToastrService,
 		private router: Router,
@@ -60,7 +59,7 @@ export class ProductsComponent {
 		this.getAllProductsWithFilters();
 	}
 	getAllProductsWithFilters() {
-		this.productsService.getAllProductsWithFilters(this.page, 10, this.Filters).subscribe((res: any) => {
+		this.productsService.getAllProductsWithFilters(this.productsService.page, 10, this.Filters).subscribe((res: any) => {
 			this.products = res.products;
 			this.totalCount = res.totalCount
 		});
@@ -95,8 +94,8 @@ export class ProductsComponent {
 	}
 
 	onPageChange(event: PaginatorState) {
-		if (event.page || event.page === 0) this.page = event.page + 1;
-		if (event.first || event.first === 0) this.first = event.first + 1;
+		if (event.page || event.page === 0) this.productsService.page = event.page + 1;
+		if (event.first || event.first === 0) this.productsService.first = event.first + 1;
 		this.getAllProductsWithFilters()
 	}
 
