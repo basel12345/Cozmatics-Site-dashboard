@@ -51,7 +51,7 @@ export class ImageAdvertisementComponent {
 			img.onload = () => {
 				this.imageWidth = img.width;
 				this.imageHeight = img.height;
-				if (this.imageHeight !== 1400 || this.imageWidth !== 300) {
+				if (this.imageHeight > 300 || this.imageWidth > 1400) {
 					this.fileToUpload = null;
 					this.fileName = this.defaultImage;
 					this.toastr.error("Width must be 300 and length must be 1400")

@@ -49,7 +49,7 @@ export class ImageCategoryComponent implements OnInit {
 			img.onload = () => {
 				this.imageWidth = img.width;
 				this.imageHeight = img.height;
-				if (this.imageHeight !== 1000 || this.imageWidth !== 1000) {
+				if (this.imageHeight > 1000 || this.imageWidth > 1000) {
 					this.fileToUpload = null;
 					this.fileName = this.defaultImage;
 					this.toastr.error("Width must be 1000 and length must be 1000")

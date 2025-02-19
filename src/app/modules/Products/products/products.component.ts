@@ -59,7 +59,7 @@ export class ProductsComponent {
 		this.getAllProductsWithFilters();
 	}
 	getAllProductsWithFilters() {
-		this.productsService.getAllProductsWithFilters(this.productsService.page, 10, this.Filters).subscribe((res: any) => {
+		this.productsService.getAllProductsWithFilters(this.productsService.page, 12, this.Filters).subscribe((res: any) => {
 			this.products = res.products;
 			this.totalCount = res.totalCount
 		});
